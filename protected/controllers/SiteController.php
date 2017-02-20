@@ -66,16 +66,16 @@ class SiteController extends Controller {
 	/**
 	 * Displays the login page
 	 */
-	public function actionLogin($t = null) {
+	public function actionLogin() {
 		
-		if(false){
-			$this->layout = 'mainLogin';
-			$this->render('//contests/concursoFinalizado');
-			return;
-		}
+// 		if(false){
+// 			$this->layout = 'mainLogin';
+// 			$this->render('//contests/concursoFinalizado');
+// 			return;
+// 		}
 		$this->layout = 'mainLogin';
 		// Verifica que exita el concurso
-		$concurso = $this->verificarToken ( $t );
+		//$concurso = $this->verificarToken ( $t );
 		
 		$model = new LoginForm ();
 		

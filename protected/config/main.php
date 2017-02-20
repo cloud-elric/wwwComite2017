@@ -60,7 +60,8 @@ return array (
 				'user' => array (
 						'loginUrl' => array (
 								// Login para concurso de haz clic con México 2016
-								'site/login/t/con_864f324cd5e379b8dc99dd11567c186e5772ed5c80c6b'
+								//'site/login/t/con_864f324cd5e379b8dc99dd11567c186e5772ed5c80c6b'
+								'site/login'
 								// Login para el concurso de canada
 								//'site/login/t/con_73cdf1c4f187ef82b94a945feae9d32a5783ddc623258'
 						),
