@@ -1253,10 +1253,17 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Checkout
 	 */
-	public function actionCheckOut($t = null, $idC) {
+	public function actionCheckOut($t = null, $idToken) {
 		$this->layout = 'mainScroll';
 		
-		$idContest = $idC;
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		
+		$idContest = $conc->id_contest;
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idContest );
 		
 		if (empty ( $oc )) {

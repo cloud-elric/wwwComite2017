@@ -1,6 +1,10 @@
 <?php 
-$idConcurso = Yii::app ()->user->concurso;
-$concurso = ConContests::model ()->findByPK ( $idConcurso );
+$concurso = ConContests::model()->find(array(
+	'condition' => "txt_token=:idToken",
+	'params' => array(
+		':idToken' => $idToken
+	)
+));
 
 $fecha = date_create($concurso->fch_fin_inscripcion);
 ?>

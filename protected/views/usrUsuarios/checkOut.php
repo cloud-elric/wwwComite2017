@@ -302,7 +302,7 @@ $(document).ready(function(){
 
 		var form = $("#tipo-pago");
 		var data = form.serialize();
-		var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>';
+		var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>/idToken/<?= $concurso->txt_token ?>';
 
 		$.ajax({
 			url:url,
@@ -342,7 +342,7 @@ $(document).ready(function(){
 		var l = Ladda.create(this);
 	 	l.start();
 
-	 	var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>';
+	 	var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>/idToken/<?= $concurso->txt_token ?>';
 		var form = $("#tipo-pago");
 		form.attr('action', url);
 
