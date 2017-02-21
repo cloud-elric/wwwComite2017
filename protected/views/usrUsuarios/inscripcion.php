@@ -77,7 +77,7 @@ $this->pageTitle = Yii::t('general', 'inscripcionTitle');
 			
 			$form = $this->beginWidget ( 'CActiveForm', array (
 				'id' => 'form-pago',
-				'action'=>Yii::app()->request->baseUrl.'/payments/saveOrdenCompra',
+				'action'=>Yii::app()->request->baseUrl.'/payments/saveOrdenCompra?idToken=' . $concurso->txt_token,
 				'enableAjaxValidation' => false 
 			) );
 			?>

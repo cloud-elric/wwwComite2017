@@ -202,10 +202,17 @@ class PaymentsController extends Controller {
 	/**
 	 * Guarda la orden de compra
 	 */
-	public function actionSaveOrdenCompra() {
+	public function actionSaveOrdenCompra($idToken) {
 		$this->layout = false;
 		// Obtiene datos de sesión
-		$idConcurso = Yii::app ()->user->concurso;
+		//$idConcurso = Yii::app ()->user->concurso;
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		$idConcurso = $conc->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		// Buscamos el concurso y mandamos error en caso de no encontrarlo
@@ -306,7 +313,8 @@ class PaymentsController extends Controller {
 			
 			$this->redirect ( array (
 					'usrUsuarios/checkOut',
-					't' => $ordenCompra->txt_order_number 
+					't' => $ordenCompra->txt_order_number,
+					'idC' => $idConcurso
 			) );
 			
 			// Yii::app()->request->getUserHostAddress
