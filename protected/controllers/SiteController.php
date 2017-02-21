@@ -70,7 +70,7 @@ class SiteController extends Controller {
 		$this->layout = 'mainLogin';
 		
 		// Verifica que exita el concurso
-		$concurso = $this->verificarToken ( $t );
+		//$concurso = $this->verificarToken ( $t );
 		
 		$model = new LoginForm ();
 		
@@ -86,16 +86,16 @@ class SiteController extends Controller {
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate () && $model->login ()) {
 				// Sesión con los datos del concurso
-				$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
+				//$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
 				$this->redirect ( array (
 						"usrUsuarios/concurso" 
 				) );
 			}
 		}
 		// display the login form
-		$this->render ( 'login', array (
+		$this->render ( 'login2', array (
 				'model' => $model,
-				'concurso' => $concurso 
+				//'concurso' => $concurso 
 		) );
 	}
 	
