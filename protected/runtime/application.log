@@ -946,3 +946,440 @@ Stack trace:
 REQUEST_URI=/wwwComite2017/payments/updateOrdenCompra/t/oc_d490d0077856e89bb75ec009719804cd58ac8cbf7a8d2
 HTTP_REFERER=http://localhost/wwwComite2017/usrUsuarios/checkOut?t=oc_d490d0077856e89bb75ec009719804cd58ac8cbf7a8d2&idC=4
 ---
+2017/02/21 20:14:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:14:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:14:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:14:58 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.concurso" is not defined.' in C:\xampp\Yii\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\auth\CWebUser.php(146): CComponent->__get('concurso')
+#1 C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php(365): CWebUser->__get('concurso')
+#2 [internal function]: PaymentsController->actionUpdateOrdenCompra('oc_d490d0077856...')
+#3 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#4 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PaymentsController), Object(ReflectionMethod), Array)
+#5 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('updateOrdenComp...')
+#9 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('payments/update...')
+#10 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/wwwComite2017/payments/updateOrdenCompra/t/oc_d490d0077856e89bb75ec009719804cd58ac8cbf7a8d2
+HTTP_REFERER=http://localhost/wwwComite2017/usrUsuarios/checkOut?t=oc_d490d0077856e89bb75ec009719804cd58ac8cbf7a8d2&idC=4
+---
+2017/02/21 20:18:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:18:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:18:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:19:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:19:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:19:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:19:57 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.concurso" is not defined.' in C:\xampp\Yii\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\auth\CWebUser.php(146): CComponent->__get('concurso')
+#1 C:\xampp\htdocs\wwwComite2017\protected\views\openpay\recibo.php(2): CWebUser->__get('concurso')
+#2 C:\xampp\Yii\yii\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#3 C:\xampp\Yii\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#4 C:\xampp\Yii\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\Yii\yii\framework\web\CController.php(782): CController->renderPartial('//openpay/recib...', Array, true)
+#6 C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php(42): CController->render('//openpay/recib...', Array)
+#7 [internal function]: PaymentsController->actionOPCodeBar('Paquete B\xC3\xA1sico...', 'oc_d490d0077856...', '226')
+#8 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#9 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PaymentsController), Object(ReflectionMethod), Array)
+#10 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('oPCodeBar')
+#14 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('payments/oPCode...')
+#15 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/wwwComite2017/payments/oPCodeBar?description=Paquete+B%C3%A1sico+&orderId=oc_d490d0077856e89bb75ec009719804cd58ac8cbf7a8d2&amount=226
+HTTP_REFERER=http://localhost/wwwComite2017/usrUsuarios/checkOut?t=oc_d490d0077856e89bb75ec009719804cd58ac8cbf7a8d2&idC=4
+---
+2017/02/21 20:22:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:22:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:22:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:27:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:27:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:27:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:27:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:27:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:27:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:29:42 [error] [exception.CException] exception 'CException' with message 'Property "ConContests.id_cocntest" is not defined.' in C:\xampp\Yii\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\db\ar\CActiveRecord.php(145): CComponent->__get('id_cocntest')
+#1 C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php(373): CActiveRecord->__get('id_cocntest')
+#2 [internal function]: PaymentsController->actionUpdateOrdenCompra('oc_d27af907e92b...', 'con_69889332aaf...')
+#3 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#4 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PaymentsController), Object(ReflectionMethod), Array)
+#5 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('updateOrdenComp...')
+#9 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('payments/update...')
+#10 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/wwwComite2017/payments/updateOrdenCompra/t/oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee/idToken/con_69889332aaf5b3138ff60ff9abcb2d5058ab6b508734f
+HTTP_REFERER=http://localhost/wwwComite2017/usrUsuarios/checkOut?t=oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee&idToken=con_69889332aaf5b3138ff60ff9abcb2d5058ab6b508734f
+---
+2017/02/21 20:30:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:30:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:30:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:34:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:34:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:34:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:34:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:34:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:34:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:35:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:35:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:35:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:35:20 [error] [exception.CException] exception 'CException' with message 'Property "CWebUser.concurso" is not defined.' in C:\xampp\Yii\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\auth\CWebUser.php(146): CComponent->__get('concurso')
+#1 C:\xampp\htdocs\wwwComite2017\protected\views\openpay\recibo.php(2): CWebUser->__get('concurso')
+#2 C:\xampp\Yii\yii\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#3 C:\xampp\Yii\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#4 C:\xampp\Yii\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\Yii\yii\framework\web\CController.php(782): CController->renderPartial('//openpay/recib...', Array, true)
+#6 C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php(42): CController->render('//openpay/recib...', Array)
+#7 [internal function]: PaymentsController->actionOPCodeBar('Paquete B\xC3\xA1sico...', 'oc_d27af907e92b...', '226')
+#8 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#9 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PaymentsController), Object(ReflectionMethod), Array)
+#10 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('oPCodeBar')
+#14 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('payments/oPCode...')
+#15 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/wwwComite2017/payments/oPCodeBar?description=Paquete+B%C3%A1sico+&orderId=oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee&amount=226
+HTTP_REFERER=http://localhost/wwwComite2017/usrUsuarios/checkOut?t=oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee&idToken=con_69889332aaf5b3138ff60ff9abcb2d5058ab6b508734f
+---
+2017/02/21 20:43:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:43:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:43:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:43:16 [error] [php] urlencode() expects parameter 1 to be string, object given (C:\xampp\Yii\yii\framework\web\CUrlManager.php:440)
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CUrlManager.php(302): CUrlRule->createUrl()
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(543): CUrlManager->createUrl()
+#2 C:\xampp\Yii\yii\framework\web\CController.php(967): CWebApplication->createUrl()
+#3 C:\xampp\Yii\yii\framework\web\CController.php(1028): PaymentsController->createUrl()
+#4 C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php(445): PaymentsController->redirect()
+#5 unknown(0): PaymentsController->actionUpdateOrdenCompra()
+#6 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#7 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#8 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#9 C:\xampp\Yii\yii\framework\web\CController.php(286): PaymentsController->runAction()
+#10 C:\xampp\Yii\yii\framework\web\CController.php(265): PaymentsController->runActionWithFilters()
+#11 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): PaymentsController->run()
+#12 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\wwwComite2017\index.php(13): CWebApplication->run()
+REQUEST_URI=/wwwComite2017/payments/updateOrdenCompra/t/oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee/idToken/con_69889332aaf5b3138ff60ff9abcb2d5058ab6b508734f
+in C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php (445)
+in C:\xampp\htdocs\wwwComite2017\index.php (13)
+2017/02/21 20:46:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:46:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:46:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
+2017/02/21 20:46:14 [error] [exception.OpenpayApiTransactionError] exception 'OpenpayApiTransactionError' with message 'The order_id has already been processed' in C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\data\OpenpayApiConnector.php:237
+Stack trace:
+#0 C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\data\OpenpayApiConnector.php(198): OpenpayApiConnector->handleRequestError('{"category":"re...', 409, Array)
+#1 C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\data\OpenpayApiConnector.php(60): OpenpayApiConnector->interpretResponse('{"category":"re...', 409)
+#2 C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\data\OpenpayApiConnector.php(277): OpenpayApiConnector->_request('post', '/charges', Array)
+#3 C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\data\OpenpayApiResourceBase.php(255): OpenpayApiConnector::request('post', '/charges', Array)
+#4 C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\data\OpenpayApiDerivedResource.php(59): OpenpayApiResourceBase->_create('OpenpayCharge', Array, Array)
+#5 C:\xampp\htdocs\wwwComite2017\protected\extensions\openpay\resources\OpenpayCharge.php(50): OpenpayApiDerivedResource->add(Array)
+#6 C:\xampp\htdocs\wwwComite2017\protected\controllers\PaymentsController.php(38): OpenpayChargeList->create(Array)
+#7 [internal function]: PaymentsController->actionOPCodeBar('Paquete B\xC3\xA1sico...', 'oc_d27af907e92b...', '226', 'con_69889332aaf...')
+#8 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(PaymentsController), Array)
+#9 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(PaymentsController), Object(ReflectionMethod), Array)
+#10 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('oPCodeBar')
+#14 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('payments/oPCode...')
+#15 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/wwwComite2017/payments/oPCodeBar?description=Paquete+B%C3%A1sico+&orderId=oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee&amount=226&idToken=con_69889332aaf5b3138ff60ff9abcb2d5058ab6b508734f
+HTTP_REFERER=http://localhost/wwwComite2017/usrUsuarios/checkOut?t=oc_d27af907e92b625ee85969eec2e44a5158ac94b7c74ee&idToken=con_69889332aaf5b3138ff60ff9abcb2d5058ab6b508734f
+---
+2017/02/21 20:54:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/css/bootstrap.min.css.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/css/bootstrap.min.css.map
+---
+2017/02/21 20:54:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.min.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('js/jquery.min.m...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/js/jquery.min.map
+---
+2017/02/21 20:54:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "themes/2gomDark/js/toastr.js.map".' in C:\xampp\Yii\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('themes/2gomDark...')
+#1 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
+---
