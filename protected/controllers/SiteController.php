@@ -66,7 +66,7 @@ class SiteController extends Controller {
 	/**
 	 * Displays the login page
 	 */
-	public function actionLogin($t = null) {
+	public function actionLogin() {
 		$this->layout = 'mainLogin';
 		
 		// Verifica que exita el concurso
