@@ -48,5 +48,8 @@ Temporary Items
 #Deshabilita cambios en assets
 /assets
 
+#Base de datos
+/protected/config/database.php
+
 #runtime
 /protected/runtime
