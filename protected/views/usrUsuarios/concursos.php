@@ -2,8 +2,6 @@
 $cs = Yii::app ()->getClientScript ();
 $cs->registerCssFile ( Yii::app ()->request->baseUrl . "/css/concursos.css" );
 ?>
-
-
 <div class="container concursos">
 	<div class="row">
 	<?php 

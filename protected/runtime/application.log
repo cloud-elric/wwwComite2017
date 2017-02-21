@@ -217,3 +217,35 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/wwwComite2017/themes/2gomDark/js/toastr.js.map
 ---
+2017/02/21 10:54:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in C:\xampp\htdocs\wwwComite2017\protected\controllers\SiteController.php:109
+Stack trace:
+#0 C:\xampp\htdocs\wwwComite2017\protected\controllers\SiteController.php(73): SiteController->verificarToken(NULL)
+#1 [internal function]: SiteController->actionLogin(NULL)
+#2 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#3 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#4 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#8 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#9 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/wwwComite2017/site/login
+---
+2017/02/21 10:54:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in C:\xampp\htdocs\wwwComite2017\protected\controllers\SiteController.php:109
+Stack trace:
+#0 C:\xampp\htdocs\wwwComite2017\protected\controllers\SiteController.php(73): SiteController->verificarToken(NULL)
+#1 [internal function]: SiteController->actionLogin(NULL)
+#2 C:\xampp\Yii\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#3 C:\xampp\Yii\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#4 C:\xampp\Yii\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\Yii\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\Yii\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\xampp\Yii\yii\framework\web\CWebApplication.php(282): CController->run('login')
+#8 C:\xampp\Yii\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/login')
+#9 C:\xampp\Yii\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\wwwComite2017\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/wwwComite2017/site/login
+---
