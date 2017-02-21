@@ -66,16 +66,11 @@ class SiteController extends Controller {
 	/**
 	 * Displays the login page
 	 */
-	public function actionLogin() {
-		
-// 		if(false){
-// 			$this->layout = 'mainLogin';
-// 			$this->render('//contests/concursoFinalizado');
-// 			return;
-// 		}
+	public function actionLogin($t = null) {
 		$this->layout = 'mainLogin';
+		
 		// Verifica que exita el concurso
-		//$concurso = $this->verificarToken ( $t );
+		$concurso = $this->verificarToken ( $t );
 		
 		$model = new LoginForm ();
 		
@@ -193,7 +188,7 @@ class SiteController extends Controller {
 			
 			// Si no encuentra el correo electronico mandamos un error
 			if (empty ( $usuario )) {
-				$model->addError ( "username", Yii::t('formRecoveryPass', 'messageError') );
+				$model->addError ( "username", "El correo ingresado no se encuentra registrado" );
 				// Si se encuentra el usuario
 			} else {
 				// Se genera un token para que el usuario pueda ser identificado y cambiar su password
@@ -209,8 +204,8 @@ class SiteController extends Controller {
 					
 					// Envia correo electronico
 					
-					$this->sendEmail ( Yii::t('recoveryPassword','subject'), $view, $data, $usuario );
-					Yii::app ()->user->setFlash ( 'success', Yii::t('formRecoveryPass', 'successMessageSendPass') );
+					$this->sendEmail ( "Recuperar contraseña", $view, $data, $usuario );
+					Yii::app ()->user->setFlash ( 'success', "Te hemos enviado un correo" );
 				} else {
 					
 				}
@@ -252,14 +247,14 @@ class SiteController extends Controller {
 						if ($recuperar->save ()) {
 								
 							$tx->commit ();
-							Yii::app()->user->setState("complete", Yii::t('resetPassword', 'successMessage'));
+							Yii::app()->user->setState("complete", "La contraseña ha sido cambiada exitosamente");
 							if(empty($t)){
 								$this->redirect("login", array("t"=>$t));
 							}
 							$this->redirect ( Yii::app ()->homeUrl );
 								
 						} else {
-							Yii::app ()->user->setFlash ( 'error', Yii::t('resetPassword', 'errorMessage') );
+							Yii::app ()->user->setFlash ( 'error', "Ocurrió un problema al momento de guardar los datos" );
 						}
 							$tx->rollback ();
 						}
@@ -267,15 +262,14 @@ class SiteController extends Controller {
 				
 					$this->render ( "resetPassword", array (
 							"model" => $usuario,
-							"t"=>$t,
-							'concurso'=>$concurso
+							"t"=>$t
 					) );
 				
 	
 // 				Yii::app ()->user->setState ( "recoveryForm", $usuario );
 // 				$this->redirect ( "index" );
 			} else {
-				Yii::app ()->user->setFlash ( 'error', Yii::t('resetPassword', 'errorMessageRequest') );
+				Yii::app ()->user->setFlash ( 'error', "La solicitud para recuperar contraseña ha expirado" );
 				$this->redirect ( "requestPassword/t/".$t );
 // 				echo "1";
 // 				return;
@@ -332,8 +326,7 @@ class SiteController extends Controller {
                                 break;
                 }
 	}
-
-
+	
 	/**
 	 * This is the default 'Concurso Finalizado' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -343,11 +336,5 @@ class SiteController extends Controller {
 		$this->layout = 'mainLogin';
 		$this->render('//contests/concursoFinalizado');
 	}
-	
 
-	public function actionTest2(){
-		echo Yii::app()->language();
-		exit;
-	} 
-	
 }

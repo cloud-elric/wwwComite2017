@@ -70,6 +70,7 @@ class ConContests extends CActiveRecord {
 		// class name for the relations automatically generated below.
 		return array (
 				'idCliente' => array(self::BELONGS_TO, 'CliEntClientes', 'id_cliente'),
+				'concursosPaises'=>array(self::HAS_MANY, 'ConContestPais', 'id_contest'),
 		);
 	}
 	
@@ -149,5 +150,24 @@ class ConContests extends CActiveRecord {
 		$concurso = ConContests::model ()->find ($criteria);
 		
 		return $concurso;
+	}
+	
+	/**
+	 * 
+	 * @param unknown $pais
+	 */
+	public static function getConcursosHabilitadosPais($pais){
+ 		$fechaActual = Utils::getFechaActual();
+		$criteria = new CDbCriteria ();
+		$criteria->condition = "id_pais=:idPais AND fch_fin_inscripcion>:fch";
+		$criteria->params = array (
+				":idPais" => $pais,
+				':fch'=>$fechaActual
+		);
+		$concursosPorPais = ConContests::model()->with('concursosPaises')->findAll($criteria);
+		
+		
+		
+		return $concursosPorPais;
 	}
 }

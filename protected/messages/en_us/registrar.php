@@ -9,6 +9,7 @@ return array(
 		'telefono'=>'Telephone',
 		'email'=>'E-mail (this will be your USR)',
 		'webSite'=>'Website (optional)',
+		'pais'=>'Country',
 		'socio'=>'PPOC member id (if any)',
 		'upload'=>'Profile picture',
 		'miembro'=>'Already have an account',

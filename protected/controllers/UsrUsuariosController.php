@@ -55,6 +55,7 @@ class UsrUsuariosController extends Controller {
 								'necesitoAyuda',
 								'sendReport',
 								'checkOut',
+								'concursos',
 								'test' 
 						),
 						'users' => array (
@@ -117,25 +118,22 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Registrar usuario
 	 */
-	public function actionRegistrar($t = null) {
+	public function actionRegistrar() {
 		$this->layout = 'mainLogin';
 		$errorMessage = 'Mensaje de error';
-		
-		// Buscamos el concurso
-		$concurso = $this->validarToken ( $t );
 		
 		// Inicializacion de modelos
 		$competidor = new UsrUsuarios ();
 		$competidor->scenario = "register";
 		$datosWeb = new UsrUsuariosWebsites ();
 		$datosTelefonos = new UsrUsuariosTelefonos ();
-		
+		$paises = CHtml::listData ( ConPaises::getAllCountries (), 'id_pais', 'txt_nombre' );
 		// Verifica si se han enviado los datos
 		if (isset ( $_POST ['UsrUsuarios'] ) && isset ( $_POST ['UsrUsuariosWebsites'] ) && isset ( $_POST ['UsrUsuariosTelefonos'] )) {
 			
 			// Asignamos los datos del formulario a sus respectivos modelos
-			$competidor->attributes=$_POST ['UsrUsuarios'];
-			$competidor->valorAdicional = $_POST['UsrUsuarios']['valorAdicional'];
+			$competidor->attributes = $_POST ['UsrUsuarios'];
+			// $competidor->valorAdicional = $_POST['UsrUsuarios']['valorAdicional'];
 			$datosWeb->attributes = $_POST ["UsrUsuariosWebsites"];
 			$datosTelefonos->attributes = $_POST ["UsrUsuariosTelefonos"];
 			
@@ -145,7 +143,7 @@ class UsrUsuariosController extends Controller {
 			 * @todo Poner un dropdown con el pais adecuado por el momento todos son canada
 			 *      
 			 */
-			$competidor->id_pais = 2;
+			$competidor->id_pais = 1;
 			
 			// Obtenemos el archivo enviado
 			$competidor->nombreImagen = CUploadedFile::getInstance ( $competidor, 'nombreImagen' );
@@ -169,28 +167,27 @@ class UsrUsuariosController extends Controller {
 			// exit;
 			
 			if ($competidor->validaUsuarioExistente2 ()) {
-				$errorMessage = Yii::t('registrar', 'errorEmailExist');
+				$errorMessage = Yii::t ( 'registrar', 'errorEmailExist' );
 			} else if (! $competidorValido || ! $datosWebValido) {
 				
-				$errorMessage = Yii::t('registrar', 'errorEmptyFields');
+				$errorMessage = Yii::t ( 'registrar', 'errorEmptyFields' );
 			} else if (! $datosTefononosValido) {
-				$errorMessage = Yii::t('registrar', 'errorTelefono');
+				$errorMessage = Yii::t ( 'registrar', 'errorTelefono' );
 			} else if (! $competidor->validarPasswordLength ()) {
-				$competidor->addError ( "txt_password",  Yii::t('registrar', 'errorPass'));
-				$errorMessage =  Yii::t('registrar', 'errorPass');
+				$competidor->addError ( "txt_password", Yii::t ( 'registrar', 'errorPass' ) );
+				$errorMessage = Yii::t ( 'registrar', 'errorPass' );
 				$competidorValido = false;
 			} else if (! $competidor->validarEmail ()) {
-				$errorMessage = Yii::t('registrar', 'errorEmail');
+				$errorMessage = Yii::t ( 'registrar', 'errorEmail' );
 			} else if (! $competidor->validarPasswordLength ()) {
-				$competidor->addError ( "txt_password", Yii::t('registrar', 'errorPass') );
-				$errorMessage = Yii::t('registrar', 'errorPass');
+				$competidor->addError ( "txt_password", Yii::t ( 'registrar', 'errorPass' ) );
+				$errorMessage = Yii::t ( 'registrar', 'errorPass' );
 				$competidorValido = false;
 			} else if (! $competidor->validarPassword ()) {
-				$errorMessage = Yii::t('registrar', 'errorPassEqual');
+				$errorMessage = Yii::t ( 'registrar', 'errorPassEqual' );
 				$competidorValido = false;
 				$competidor->validarRepetirPass ();
 			}
-			
 			
 			if (! empty ( $competidor->nombreImagen )) {
 				// Nombre unico para la imagen
@@ -208,19 +205,19 @@ class UsrUsuariosController extends Controller {
 					if ($competidor->save ()) {
 						
 						// Guarda el valor adicional
-						if (strlen ( $competidor->valorAdicional ) > 0) {
-							$adicional = new UsrUsuariosInfos ();
-							$adicional->id_usuario = $competidor->id_usuario;
-							/**
-							 *
-							 * @todo crear la respectiva tabla
-							 */
-							$adicional->id_info_adicional = 1;
-							
-							$adicional->txt_valor = $competidor->valorAdicional;
-							
-							$adicional->save ();
-						}
+						// if (strlen ( $competidor->valorAdicional ) > 0) {
+						// $adicional = new UsrUsuariosInfos ();
+						// $adicional->id_usuario = $competidor->id_usuario;
+						// /**
+						// *
+						// * @todo crear la respectiva tabla
+						// */
+						// $adicional->id_info_adicional = 1;
+						
+						// $adicional->txt_valor = $competidor->valorAdicional;
+						
+						// $adicional->save ();
+						// }
 						// Asignamos el id del competidor al weby tel
 						$datosWeb->id_usuario = $competidor->id_usuario;
 						$datosTelefonos->id_usaurio = $competidor->id_usuario;
@@ -238,7 +235,7 @@ class UsrUsuariosController extends Controller {
 							}
 							$transaction->commit ();
 							
-							$this->loginCompetidor ( $competidor, $concurso );
+							$this->loginCompetidor ( $competidor );
 						} else {
 							$transaction->rollback ();
 						}
@@ -250,14 +247,13 @@ class UsrUsuariosController extends Controller {
 			}
 		}
 		
-		
 		// Vista a mostrar
 		$this->render ( "registrar", array (
 				"competidor" => $competidor,
 				"datosWeb" => $datosWeb,
 				"datosTelefonos" => $datosTelefonos,
-				"t" => $t,
-				"errorMessage" => $errorMessage 
+				"errorMessage" => $errorMessage,
+				'paises' => $paises 
 		) );
 	}
 	
@@ -306,7 +302,7 @@ class UsrUsuariosController extends Controller {
 		if ($concursoDatos->b_primera_vez == 1) {
 			$concursoDatos->b_primera_vez = 0;
 			$concursoDatos->save ();
-			Yii::app ()->user->setFlash ( 'success', Yii::t('general', 'successPayment') );
+			Yii::app ()->user->setFlash ( 'success', Yii::t ( 'general', 'successPayment' ) );
 		}
 		
 		// Obtenemos el numero de fotos que compro el usuario
@@ -418,7 +414,7 @@ class UsrUsuariosController extends Controller {
 		$this->layout = 'mainScroll';
 		$idConcurso = Yii::app ()->user->concurso;
 		
-		$concurso = ConContests::model()->findByPk($idConcurso);
+		$concurso = ConContests::model ()->findByPk ( $idConcurso );
 		
 		// Obtenemos los productos y los tipos de pagos para el concurso
 		$productos = ConProducts::obtenerProductosPorConcurso ( $idConcurso );
@@ -441,8 +437,8 @@ class UsrUsuariosController extends Controller {
 		$this->render ( "inscripcion", array (
 				"productos" => $productos,
 				"tiposPagos" => $tiposPagos,
-				"terminosCondiciones" => $terminosCondiciones, 
-				"concurso"=>$concurso,
+				"terminosCondiciones" => $terminosCondiciones,
+				"concurso" => $concurso 
 		) );
 	}
 	
@@ -451,22 +447,33 @@ class UsrUsuariosController extends Controller {
 	 *
 	 * @param UsrUsuarios $competidor        	
 	 */
-	private function loginCompetidor($competidor, $concurso) {
-		
+	private function loginCompetidor($competidor) {
 		$model = new LoginForm ();
 		$model->username = $competidor->txt_correo;
 		$model->password = $competidor->txt_password;
 		// validate user input and redirect to the previous page if valid
 		if ($model->validate () && $model->login ()) {
-			$this->crearSesionUsuarioConcurso ( $competidor->id_usuario, $concurso );
-			$this->redirect ( array('usrUsuarios/concurso') );
+			// $this->crearSesionUsuarioConcurso ( $competidor->id_usuario, $concurso );
+			// $this->redirect ( array('usrUsuarios/concurso') );
+			$this->redirect ( array (
+					'usrUsuarios/concursos' 
+			) );
 			return;
-		}else{
-			
-			
+		} else {
 		}
 		
-		exit;
+		exit ();
+	}
+	
+	/**
+	 * Vista con todos los concursos disponibles
+	 */
+	public function actionConcursos() {
+		$concursosDisponibles = ConContests::getConcursosHabilitadosPais ( 1 );
+		
+		$this->render ( 'concursos', array (
+				'concursosDisponibles' => $concursosDisponibles 
+		) );
 	}
 	
 	/**
@@ -575,7 +582,7 @@ class UsrUsuariosController extends Controller {
 				
 				if (empty ( $pic )) {
 					$respuesta ["status"] = "error";
-					$respuesta ["message"] = Yii::t('formFotos', 'error500');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'error500' );
 					echo json_encode ( $respuesta );
 					
 					return;
@@ -591,14 +598,14 @@ class UsrUsuariosController extends Controller {
 				
 				if (! is_array ( $size )) {
 					$respuesta ["status"] = "error";
-					$respuesta ["message"] = Yii::t('formFotos', 'errorFileWrong');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'errorFileWrong' );
 					echo json_encode ( $respuesta );
 					return;
 				}
 				
 				if (! array_key_exists ( "channels", $size )) {
 					$respuesta ["status"] = "error";
-					$respuesta ["message"] =  Yii::t('formFotos', 'errorFileWrong');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'errorFileWrong' );
 					echo json_encode ( $respuesta );
 					return;
 				}
@@ -608,7 +615,7 @@ class UsrUsuariosController extends Controller {
 				$mime = $size ['mime'];
 				
 				if ($bits > 6144) {
-					$respuesta ["message"] = Yii::t('formFotos', 'errorFileSize');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'errorFileSize' );
 				}
 				
 				// echo ("<br><br><br><br><br><br>w:" . $width . " H:" . $height . " wh:" . $wh . " b:" . $bits . " c:" . $channels . " m:" . $mime);
@@ -616,7 +623,7 @@ class UsrUsuariosController extends Controller {
 				if ($size == null || $size = 0 || empty ( $size )) {
 					
 					$respuesta ["status"] = "error";
-					$respuesta ["message"] =  Yii::t('formFotos', 'errorFileWrong');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'errorFileWrong' );
 					
 					echo json_encode ( $respuesta );
 					return;
@@ -628,7 +635,7 @@ class UsrUsuariosController extends Controller {
 				
 				if ($width > 4000 || $height > 4000) {
 					$respuesta ["status"] = "error";
-					$respuesta ["message"] =  Yii::t('formFotos', 'errorFilePx');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'errorFilePx' );
 					
 					echo json_encode ( $respuesta );
 					return;
@@ -638,7 +645,7 @@ class UsrUsuariosController extends Controller {
 				
 				if ($mime !== 'image/jpeg') {
 					$respuesta ["status"] = "error";
-					$respuesta ["message"] =  Yii::t('formFotos', 'errorFileType');
+					$respuesta ["message"] = Yii::t ( 'formFotos', 'errorFileType' );
 					
 					echo json_encode ( $respuesta );
 					return;
@@ -681,7 +688,7 @@ class UsrUsuariosController extends Controller {
 				$pic->save ();
 				// print_r ( $pic->getErrors () );
 				$respuesta ["status"] = "success";
-				$respuesta ["message"] = Yii::t('formFotos', 'successMessage');
+				$respuesta ["message"] = Yii::t ( 'formFotos', 'successMessage' );
 				$respuesta ["urlSmall"] = Yii::app ()->request->baseUrl . "/" . $dirBase . "/small_" . $pic->txt_file_name;
 				$respuesta ["urlLarge"] = Yii::app ()->request->baseUrl . "/" . $dirBase . "/large_" . $pic->txt_file_name;
 				
@@ -690,7 +697,7 @@ class UsrUsuariosController extends Controller {
 			}
 		} catch ( ErrorException $e ) {
 			// echo $e;
-			throw new CHttpException ( 500, Yii::t('formFotos', 'error500') );
+			throw new CHttpException ( 500, Yii::t ( 'formFotos', 'error500' ) );
 		}
 	}
 	
@@ -887,8 +894,7 @@ class UsrUsuariosController extends Controller {
 	 */
 	public function actionCallbackFacebook($t = null) {
 		
-		
-	// Buscamos el concurso
+		// Buscamos el concurso
 		$concurso = $this->validarToken ( $t );
 		
 		Yii::log ( "\n\r En callback de facebook", "debug", 'facebook' );
@@ -928,8 +934,8 @@ class UsrUsuariosController extends Controller {
 			$usuarioDB = $entUsuario->searchUsuarioIdFacebook ();
 			$login = new LoginForm ();
 			
-// 			print_r($usuario);
-// 			exit;
+			// print_r($usuario);
+			// exit;
 			
 			if (empty ( $usuarioDB )) {
 				
@@ -1240,7 +1246,7 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Checkout
 	 */
-	public function actionCheckOut($t=null) {
+	public function actionCheckOut($t = null) {
 		$this->layout = 'mainScroll';
 		
 		$idContest = Yii::app ()->user->concurso;
@@ -1252,74 +1258,67 @@ class UsrUsuariosController extends Controller {
 			throw new CHttpException ( 404, 'The requested page does not exist.' );
 		}
 		
-		
 		// Tipos de pagos
 		$tiposPagos = ConRelContestPayments::model ()->findAll ( array (
 				"condition" => "id_contest=:idContest AND id_tipo_pago != 3",
 				"params" => array (
-						":idContest" => $idContest
-				)
+						":idContest" => $idContest 
+				) 
 		) );
 		
-		if(!empty($oc->id_cupon)){
-			$cupon = PayCupons::model()->findByPK($oc->id_cupon); 
-		}else{
+		if (! empty ( $oc->id_cupon )) {
+			$cupon = PayCupons::model ()->findByPK ( $oc->id_cupon );
+		} else {
 			$cupon = new PayCupons ();
 		}
 		$message = '';
 		if (isset ( $_POST ['PayCupons'] )) {
 			
-		
 			$cupon->attributes = $_POST ['PayCupons'];
 			$cuponBaseDatos = PayCupons::getCupon ( $cupon->txt_identificador_unico, $idContest );
 			
 			if (empty ( $cuponBaseDatos )) {
 				
 				$oc->id_cupon = null;
-				//$oc->num_total = $oc->num_sub_total * (0.13);
-				$tax = number_format (($oc->num_sub_total * (0.13)),2);
-				$oc->num_total =number_format (( $oc->num_sub_total+$tax),2);
-				$oc->save();
+				// $oc->num_total = $oc->num_sub_total * (0.13);
+				$tax = number_format ( ($oc->num_sub_total * (0.13)), 2 );
+				$oc->num_total = number_format ( ($oc->num_sub_total + $tax), 2 );
+				$oc->save ();
 				$cupon = new PayCupons ();
-				$message = Yii::t('checkout', 'cuponNoExite');
-			}else{
-				//$message = 'Cupon existe';
+				$message = Yii::t ( 'checkout', 'cuponNoExite' );
+			} else {
+				// $message = 'Cupon existe';
 				$cupon = $cuponBaseDatos;
 				
-				//$oc->num_sub_total = $oc->num_sub_total - (($cupon->num_porcentaje_descuento*$oc->num_sub_total)/100);
+				// $oc->num_sub_total = $oc->num_sub_total - (($cupon->num_porcentaje_descuento*$oc->num_sub_total)/100);
 				
 				$oc->id_cupon = $cupon->id_cupon;
 				
-				if($cupon->b_porcentaje==1){
+				if ($cupon->b_porcentaje == 1) {
 					
-					$subTotal = number_format (( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento*$oc->num_sub_total)/100))),2);
-						
-					$tax = number_format (( $subTotal * (0.13)),2);
-					$oc->num_total=$subTotal +$tax;
+					$subTotal = number_format ( (($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100))), 2 );
 					
-				}else{
-					$subTotal = number_format ((((($oc->num_sub_total - $cupon->num_porcentaje_descuento)))),2) ;
+					$tax = number_format ( ($subTotal * (0.13)), 2 );
+					$oc->num_total = $subTotal + $tax;
+				} else {
+					$subTotal = number_format ( (((($oc->num_sub_total - $cupon->num_porcentaje_descuento)))), 2 );
 					
-					$tax = number_format (( $subTotal * (0.13)),2);
-					$oc->num_total=$subTotal +$tax;
-					
+					$tax = number_format ( ($subTotal * (0.13)), 2 );
+					$oc->num_total = $subTotal + $tax;
 				}
 				
-				
-				
-				$oc->save();
-				
+				$oc->save ();
 			}
 		}
 		
-		$concurso = ConContests::model()->findByPk($idContest);
+		$concurso = ConContests::model ()->findByPk ( $idContest );
 		
 		$this->render ( 'checkOut', array (
 				'oc' => $oc,
 				'cupon' => $cupon,
 				'message' => $message,
 				'tiposPagos' => $tiposPagos,
-				'concurso'=>$concurso
+				'concurso' => $concurso 
 		) );
 		
 		return;

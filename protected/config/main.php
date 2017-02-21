@@ -9,7 +9,7 @@ return array (
 		'basePath' => dirname ( __FILE__ ) . DIRECTORY_SEPARATOR . '..',
 		'name' => 'Internacional',
 		'sourceLanguage'=>'es',
-		'language' => 'en_us',
+		'language' => 'es_es',
 		'theme' => '2gomDark',
 		'defaultController' => "usrUsuarios/concurso",
 		
@@ -91,7 +91,7 @@ return array (
 				// database settings are configured in database.php
 				'db' => require (dirname ( __FILE__ ) . '/database.php'),
 				
-				'errorHandler' => array ('errorAction'=>'site/error'),
+				//'errorHandler' => array ('errorAction'=>'site/error'),
 				// use 'site/error' action to display errors
 				// 'errorAction'=>'site/error',
 				
@@ -140,7 +140,9 @@ return array (
 										'categories' => 'facebook' 
 								) 
 						) 
-				) 
+				),array(
+		  'class'=>'CWebLogRoute',
+		  ), 
 		)
 		// uncomment the following to show log messages on web pages
 		/*
