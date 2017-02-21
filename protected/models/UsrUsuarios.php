@@ -28,7 +28,7 @@ class UsrUsuarios extends CActiveRecord {
 	 * Usar esta propiedad mientras termina las siguientes tablas
 	 * @var unknown
 	 */
-	public $valorAdicional;
+	//public $valorAdicional;
 	
 	/**
 	 * Nombre de la imagen

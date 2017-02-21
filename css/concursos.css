@@ -1,0 +1,23 @@
+html{
+position: relative;
+    height: 100%;	
+}
+
+body{
+position: relative;
+    height: 100%;	
+}
+
+.wrap-bg {
+    height: 100%;
+}
+
+.header-user {
+    
+    position: relative;
+    
+}
+
+.container.concursos{
+	padding-top:20px;
+}

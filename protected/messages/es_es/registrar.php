@@ -9,6 +9,7 @@ return array(
 		'telefono'=>'Teléfono',
 		'email'=>'Correo electrónico',
 		'webSite'=>'Website (opcional)',
+		'pais'=>'Seleccionar país',
 		'socio'=>'Número de socio',
 		'upload'=>'Subir foto',
 		'imgMaxSize'=>'max size',

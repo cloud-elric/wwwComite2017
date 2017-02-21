@@ -73,7 +73,7 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 
 						<?php echo $form->textField($datosWeb,'txt_url',array("class"=>"form-control",'placeholder'=>Yii::t('registrar', 'webSite'))); ?>
 						
-						<?php echo $form->textField($competidor,'valorAdicional',array("class"=>"form-control",'placeholder'=>Yii::t('registrar', 'socio'))); ?>
+						<?php echo $form->dropDownList($competidor,'id_pais',$paises,array('prompt'=>Yii::t('registrar', 'pais'),"class"=>"form-control", 'style'=>'margin-top:16px')); ?>
 						
 						<?php # echo $form->error($datosWeb,'txt_url'); ?>
 						
@@ -102,7 +102,7 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 			<div class="form-footer">
 				<div class="row">
 					<div class="col-sm-6 col-md-6">
-					<?php echo CHtml::link(Yii::t('registrar', 'miembro')." <div class='ripple'></div>",array("site/login/t/".$t), array("class"=>"btn btn-blue paper"))?>
+					<?php echo CHtml::link(Yii::t('registrar', 'miembro')." <div class='ripple'></div>",array("site/login"), array("class"=>"btn btn-blue paper"))?>
 					</div>
 					<div class="col-sm-6 col-md-6">
 						<?php # echo CHtml::submitButton("Crear cuenta <div class='ripple'></div>", array("class"=>"btn btn-green paper")); ?>
