@@ -69,9 +69,6 @@ class SiteController extends Controller {
 	public function actionLogin() {
 		$this->layout = 'mainLogin';
 		
-		// Verifica que exita el concurso
-		//$concurso = $this->verificarToken ( $t );
-		
 		$model = new LoginForm ();
 		
 		// if it is ajax validation request
@@ -93,7 +90,7 @@ class SiteController extends Controller {
 			}
 		}
 		// display the login form
-		$this->render ( 'login2', array (
+		$this->render ( 'login', array (
 				'model' => $model,
 				//'concurso' => $concurso 
 		) );

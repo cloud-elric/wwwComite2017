@@ -21,10 +21,10 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 				<h2>
 					<?=Yii::t('general', 'bienvenido')?> <img
 						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png"
-						alt="<?=$concurso->txt_name?>">
+						alt="">
 				</h2>
 				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
-				<a href="<?=$concurso->txt_url_contest?>" target="_blank"
+				<a href="" target="_blank"
 					class="btn btn-blue"><?=Yii::t('general', 'consulta')?></a>
 			</div>
 		</div>
@@ -37,7 +37,6 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 
 				<img src="<?= Yii::app()->request->baseUrl ?>/images/hardcode/WPC-Logo.png"
 					alt="CFM">
-				<!-- <h1><?=$concurso->idCliente->txt_nombre?></h1> -->
 
 				<?php
 				$form = $this->beginWidget ( 'CActiveForm', array (
@@ -79,9 +78,9 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 					<i class="fa fa-facebook"></i> <?=Yii::t('login', 'facebook')?>
 				</button> 
 
-					<?= CHtml::link(Yii::t('login', 'necesitarCuenta'), array("usrUsuarios/registrar/t/".$concurso->txt_token), array("class"=>"necesitoe btn btn-blue btn-green-sign")); ?>
+					<?= CHtml::link(Yii::t('login', 'necesitarCuenta'), array("usrUsuarios/registrar/"), array("class"=>"necesitoe btn btn-blue btn-green-sign")); ?>
 					
-					<?= CHtml::link(Yii::t('login','olvidePass'), array("site/requestPassword/t/".$concurso->txt_token), array("class"=>"olvide"))?>
+					<?= CHtml::link(Yii::t('login','olvidePass'), array("site/requestPassword"), array("class"=>"olvide"))?>
 
 					<!-- <a class="necesito" href="">Necesito una cuenta</a> -->
 					<?php # CHtml::link(Yii::t('login', 'necesitarCuenta'), array("usrUsuarios/registrar/t/".$concurso->txt_token), array("class"=>"necesito")); ?>
