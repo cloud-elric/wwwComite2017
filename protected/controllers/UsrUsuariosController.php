@@ -56,7 +56,9 @@ class UsrUsuariosController extends Controller {
 								'sendReport',
 								'checkOut',
 								'concursos',
-								'test' 
+								'test',
+								'avance',
+								'calificaciones'
 						),
 						'users' => array (
 								'@' 
@@ -350,7 +352,8 @@ class UsrUsuariosController extends Controller {
 		
 		// Muestra las fotos
 		$this->render ( "fotosUpload", array (
-				"categorias" => $categorias 
+				"categorias" => $categorias,
+				"idConcurso" => $idConcurso
 		) );
 	}
 	
@@ -486,9 +489,9 @@ class UsrUsuariosController extends Controller {
 		$concursosProximos = ConContests::getConcursosProximosPais(1);
 		
 		$this->render ( 'concursos', array (
-				'concursosDisponibles' => $concursosDisponibles,
 				'concursosUsuario' => $concursosUsuario,
 				'concursosProximos' => $concursosProximos,
+				'concursosDisponibles' => $concursosDisponibles 
 		) );
 	}
 	
@@ -534,7 +537,7 @@ class UsrUsuariosController extends Controller {
 	 * Action para ver las fotos subidas del usuario al concurso
 	 */
 	public function actionFotosUsuario() {
-		$this->revisarSesion ();
+		//$this->revisarSesion();
 		
 		$this->render ( "fotosUsuario" );
 	}
@@ -543,8 +546,15 @@ class UsrUsuariosController extends Controller {
 	 * Revisa que la sesion sea valida si no lo desloguea
 	 */
 	public function revisarSesion() {
-		$idConcurso = Yii::app ()->user->concurso;
+		//$idConcurso = Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
+		$rel = ConRelUsersContest::model()->find(array(
+			"condition" => "id_usuario=:idUsuario",
+			"params" => array(
+				":idUsuario" => $idUsuario
+			)
+		));
+		$idConcurso = $rel->id_contest;
 		
 		$session = Yii::app ()->user->getState ( md5 ( "sesion-" . $idUsuario . "-" . $idConcurso ) );
 		
@@ -1347,4 +1357,13 @@ class UsrUsuariosController extends Controller {
 		return;
 	}
 	
+	public function actionAvance(){
+		
+		$this->render('avance');
+	}
+	
+	public function actionCalificaciones(){
+		
+		$this->render('calificaciones');
+	}
 }

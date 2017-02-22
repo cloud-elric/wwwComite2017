@@ -85,7 +85,7 @@ class SiteController extends Controller {
 				// Sesión con los datos del concurso
 				//$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
 				$this->redirect ( array (
-						"usrUsuarios/concurso" 
+						"usrUsuarios/concursos" 
 				) );
 			}
 		}

@@ -1,5 +1,5 @@
 <?php
-$idConcurso = Yii::app ()->user->concurso;
+//$idConcurso = Yii::app ()->user->concurso;
 $idUsuario = Yii::app ()->user->concursante->id_usuario;
 
 // Buscamos las fotos del competidor
@@ -57,7 +57,7 @@ $this->pageTitle = Yii::t('general', 'subirFotosTitle');
 						foreach ( $fotosCompetidor as $foto ) {
 
 							if(Yii::app ()->user->concursante->b_participa==1){
-								$this->renderPartial ( "usuarioParticipa", array (
+								$this->renderPartial ( "usuarioParticipa", array(
 										"pic" => $foto,
 										"categorias" => $categorias 
 								) );

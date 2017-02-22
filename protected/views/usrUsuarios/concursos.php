@@ -34,6 +34,7 @@ foreach($concursosDisponibles as $concurso){
   <div id="menu1" class="tab-pane fade">
     <div class="row">
 	<?php 
+	//$fechaActual = Utils::getFechaActual();
 foreach($concursosUsuario as $concursoUsuario){
 ?>
 	<div class="col-md-4">
@@ -42,7 +43,15 @@ foreach($concursosUsuario as $concursoUsuario){
 				<h2><?=$concursoUsuario->txt_name?></h2>
 				
 				<div class="form-group text-center">
-					<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoUsuario->txt_token?>" class="btn btn-primary">Entrar</a>
+					<?php //if($concursoUsuario->fch_fin_inscripcion > $fechaActual){
+					if($concursoUsuario->id_status == 2){
+					?>
+						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoUsuario->txt_token?>" class="btn btn-primary">Entrar</a>
+					<?php }else if($concursoUsuario->id_status == 3){ ?>
+						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/fotosUsuario" class="btn btn-primary">Entrar</a>
+					<?php }else if($concursoUsuario->id_status >= 4){ ?>
+						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/calificaciones" class="btn btn-primary">Entrar</a>
+					<?php }?>
 				</div>
 			</div> 
 		</div>
@@ -63,7 +72,7 @@ foreach($concursosProximos as $concursoProximo){
 				<h2><?=$concursoProximo->txt_name?></h2>
 				
 				<div class="form-group text-center">
-					<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoProximo->txt_token?>" class="btn btn-primary">Entrar</a>
+					<!-- <a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoProximo->txt_token?>" class="btn btn-primary">Entrar</a> -->
 				</div>
 			</div> 
 		</div>
