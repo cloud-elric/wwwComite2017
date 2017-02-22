@@ -43,7 +43,8 @@ class ConRelUsersContest extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
+				return array(
+						'idConcursos'=>array(self::BELONGS_TO, 'ConContests', 'id_contest'),
 		);
 	}
 

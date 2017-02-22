@@ -476,10 +476,19 @@ class UsrUsuariosController extends Controller {
 	 * Vista con todos los concursos disponibles
 	 */
 	public function actionConcursos() {
+		
+		$usuario = Yii::app ()->user->concursante;
+		
 		$concursosDisponibles = ConContests::getConcursosHabilitadosPais ( 1 );
 		
+		$concursosUsuario = ConContests::getConcursosParticiparUsuario($usuario->id_usuario);
+		
+		$concursosProximos = ConContests::getConcursosProximosPais(1);
+		
 		$this->render ( 'concursos', array (
-				'concursosDisponibles' => $concursosDisponibles 
+				'concursosDisponibles' => $concursosDisponibles,
+				'concursosUsuario' => $concursosUsuario,
+				'concursosProximos' => $concursosProximos,
 		) );
 	}
 	
@@ -1337,4 +1346,5 @@ class UsrUsuariosController extends Controller {
 		
 		return;
 	}
+	
 }

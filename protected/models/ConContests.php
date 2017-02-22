@@ -71,6 +71,7 @@ class ConContests extends CActiveRecord {
 		return array (
 				'idCliente' => array(self::BELONGS_TO, 'CliEntClientes', 'id_cliente'),
 				'concursosPaises'=>array(self::HAS_MANY, 'ConContestPais', 'id_contest'),
+				'usuarios'=>array(self::HAS_MANY, 'ConRelUsersContest','id_contest')		
 		);
 	}
 	
@@ -159,7 +160,7 @@ class ConContests extends CActiveRecord {
 	public static function getConcursosHabilitadosPais($pais){
  		$fechaActual = Utils::getFechaActual();
 		$criteria = new CDbCriteria ();
-		$criteria->condition = "id_pais=:idPais AND fch_fin_inscripcion>:fch";
+		$criteria->condition = "id_pais=:idPais AND id_status>1 AND fch_fin_inscripcion>:fch";
 		$criteria->params = array (
 				":idPais" => $pais,
 				':fch'=>$fechaActual
@@ -169,5 +170,31 @@ class ConContests extends CActiveRecord {
 		
 		
 		return $concursosPorPais;
+	}
+	
+	public static function getConcursosParticiparUsuario($idUsuario){
+		$criteria = new CDbCriteria ();
+		$criteria->condition = "id_usuario=:idUsuario";
+		$criteria->params = array (
+				':idUsuario'=>$idUsuario
+		);
+		$concursosUsuario = ConContests::model()->with('usuarios')->findAll($criteria);
+	
+	
+	
+		return $concursosUsuario;
+	}
+	
+	public static function getConcursosProximosPais($pais){
+		$criteria = new CDbCriteria ();
+		$criteria->condition = "id_pais=:idPais AND id_status=1";
+		$criteria->params = array (
+				":idPais" => $pais,
+		);
+		$concursosPorPaisProximos = ConContests::model()->with('concursosPaises')->findAll($criteria);
+	
+	
+	
+		return $concursosPorPaisProximos;
 	}
 }
