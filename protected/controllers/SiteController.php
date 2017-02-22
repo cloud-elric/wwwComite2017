@@ -66,11 +66,8 @@ class SiteController extends Controller {
 	/**
 	 * Displays the login page
 	 */
-	public function actionLogin($t = null) {
+	public function actionLogin() {
 		$this->layout = 'mainLogin';
-		
-		// Verifica que exita el concurso
-		//$concurso = $this->verificarToken ( $t );
 		
 		$model = new LoginForm ();
 		
@@ -93,7 +90,7 @@ class SiteController extends Controller {
 			}
 		}
 		// display the login form
-		$this->render ( 'login2', array (
+		$this->render ( 'login', array (
 				'model' => $model,
 				//'concurso' => $concurso 
 		) );
