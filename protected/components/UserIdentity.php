@@ -34,6 +34,7 @@ class UserIdentity extends CUserIdentity {
 			$rel = ConRelUsersContest::model()->find(array(
 					"condition" => "id_usuario=:idUsuario",
 					"params" => array(
+							":idUsuario" => $usuario->id_usuario
 					)
 			));
 			
