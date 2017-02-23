@@ -4,10 +4,15 @@ $dataBase = array ();
 if ($debug) {
 	$dataBase = array (
 				
-			'connectionString' => 'mysql:host=192.168.0.7;dbname=comite_2017',
+			'connectionString' => 'mysql:host=localhost;dbname=comite_2017',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'root',
+			
+// 			'connectionString' => 'mysql:host=mysql3000.mochahost.com;dbname=beto2gom_comite_2017',
+// 			'emulatePrepare' => true,
+// 			'username' => 'beto2gom_DgomDev',
+// 			'password' => 'b4n4n4M0nk3y!',
 			//'charset' => 'utf8',
 				
 			'schemaCachingDuration'=>3600,
