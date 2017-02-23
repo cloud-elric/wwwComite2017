@@ -31,18 +31,18 @@ class UserIdentity extends CUserIdentity {
 			
 			$this->_id=$usuario->id_usuario;
 			
-			$rel = ConRelUsersContest::model()->find(array(
-					"condition" => "id_usuario=:idUsuario",
-					"params" => array(
-							":idUsuario" => $usuario->id_usuario
-					)
-			));
+// 			$rel = ConRelUsersContest::model()->find(array(
+// 					"condition" => "id_usuario=:idUsuario",
+// 					"params" => array(
+// 							":idUsuario" => $usuario->id_usuario
+// 					)
+// 			));
 			
-			if($rel){
-				$usuario->b_participa = $rel->b_participa;
-			}else{
-				$usuario->b_participa = 0;
-			}
+// 			if($rel){
+// 				$usuario->b_participa = $rel->b_participa;
+// 			}else{
+// 				$usuario->b_participa = 0;
+// 			}
 			
 			Yii::app ()->user->setState ( "concursante", $usuario);
 			//Yii::app ()->user->setState ( "roles", $usuario->b_juez_admin);

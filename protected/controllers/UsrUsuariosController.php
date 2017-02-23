@@ -6,6 +6,8 @@ class UsrUsuariosController extends Controller {
 	 *      using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout = '//layouts/column2';
+	public $idUs;
+	public $idCon;
 	
 	/**
 	 *
@@ -272,6 +274,11 @@ class UsrUsuariosController extends Controller {
 		));
 		$idC = $concurso->id_contest;
 		
+		$this->idUs = $idUsuario;
+		$this->idCon = $idC;
+		
+		//$this->verificarUsuario($idUsuario, $idC);
+		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idC );
 		
 		// if(Yii::app()->user->concursante->txt_correo="humberto@2gom.com.mx"){
@@ -360,8 +367,15 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Action que guarda la información de la foto
 	 */
-	public function actionGuardarInformacionPhoto() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionGuardarInformacionPhoto($idToken) {
+		//$idConcurso = Yii::app ()->user->concurso;
+		$concurso = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		$idConcurso = $concurso->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$participa = Yii::app ()->user->concursante->b_participa;
 		
@@ -584,7 +598,7 @@ class UsrUsuariosController extends Controller {
 	 * Action para agregar fotos del usuario
 	 */
 	public function actionGuardarFotosCompetencia() {
-		$idConcurso = Yii::app ()->user->concurso;
+		$idConcurso = 4;//Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$tokenUsuario = Yii::app ()->user->concursante->txt_usuario_number;
 		$respuesta = array ();
@@ -1094,8 +1108,8 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Action para cuando el usuario decide participar al concurso
 	 */
-	public function actionUsurioParticipar() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionUsurioParticipar($idCon) {
+		$idConcurso = $idCon;//Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$tokenUsuario = Yii::app ()->user->concursante->txt_usuario_number;
 		
@@ -1365,5 +1379,27 @@ class UsrUsuariosController extends Controller {
 	public function actionCalificaciones(){
 		
 		$this->render('calificaciones');
+	}
+	
+	public function verificarUsuario($idUsuario, $idConcurso){
+		$rel = ConRelUsersContest::model()->find(array(
+			"condition" => "id_usuario=:idUsuario AND id_contest=:idConcurso",
+			"params" => array(
+				":idUsuario" => $idUsuario,
+				":idConcurso" => $idConcurso
+			)
+		));
+					
+		if($rel){
+			Yii::app ()->user->concursante->b_participa = $rel->b_participa;
+		}else{
+			Yii::app ()->user->concursante->b_participa = 0;
+		}
+	}
+	
+	protected function beforeAction($action){
+		$this->verificarUsuario($this->idUs, $this->idCon);
+		//exit();
+		return parent::beforeAction($action);
 	}
 }
