@@ -23,6 +23,7 @@ class UsrUsuarios extends CActiveRecord {
 	 * @var unknown
 	 */
 	public $repetirPassword;
+	public $b_participa;
 
 	/**
 	 * Usar esta propiedad mientras termina las siguientes tablas

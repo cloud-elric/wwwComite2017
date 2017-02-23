@@ -35,7 +35,12 @@
 			'enableClientValidation' => true 
 	) );
 	
-	
+	$concurso = ConContests::model()->find(array(
+		'condition' => "id_contest=:idConcurso",
+		'params' => array(
+			':idConcurso' => $idConcurso
+		)
+	));
 	?>
 
 	<!-- .flip-panel -->
@@ -170,7 +175,7 @@
 					<div class="text-right">
 						<?php
 						echo CHtmlExtra::ajaxSubmitButtonExtra ( Yii::t('formFotos', 'submitUpload').' <div class="ripplexs"></div>', CHtml::normalizeUrl ( array (
-								'usrUsuarios/guardarInformacionPhoto' 
+								'usrUsuarios/guardarInformacionPhoto?idToken='.$concurso->txt_token
 						) ), array (
 								'dataType' => 'JSON',
 								'type' => 'post',

@@ -1,5 +1,5 @@
 <?php
-$idConcurso = Yii::app ()->user->concurso;
+//$idConcurso = Yii::app ()->user->concurso;
 $idUsuario = Yii::app ()->user->concursante->id_usuario;
 
 // Buscamos las fotos del competidor
@@ -57,14 +57,15 @@ $this->pageTitle = Yii::t('general', 'subirFotosTitle');
 						foreach ( $fotosCompetidor as $foto ) {
 
 							if(Yii::app ()->user->concursante->b_participa==1){
-								$this->renderPartial ( "usuarioParticipa", array (
+								$this->renderPartial ( "usuarioParticipa", array(
 										"pic" => $foto,
 										"categorias" => $categorias 
 								) );
 							}else{
 								$this->renderPartial ( "_formFotos", array (
 										"pic" => $foto,
-										"categorias" => $categorias 
+										"categorias" => $categorias,
+										"idConcurso" => $idConcurso
 								) );
 							}
 						}
@@ -123,7 +124,7 @@ $this->pageTitle = Yii::t('general', 'subirFotosTitle');
 			<!-- .modal-footer -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-red btn-small" data-dismiss="modal"><?=Yii::t('fotosUpload', 'cancelBtn')?></button>
-                <button type="button" id="aceptarConcursar" class="btn btn-green participar btn-small"><?=Yii::t('fotosUpload', 'successBtn')?></button>
+                <button type="button" id="aceptarConcursar" data-id="<?= $idConcurso ?>" class="btn btn-green participar btn-small"><?=Yii::t('fotosUpload', 'successBtn')?></button>
 			</div>
 			<!-- end / .modal-footer -->
 
@@ -299,6 +300,7 @@ function sendAjaxInfo(elemento){
 
 </script>
 <script>
+var base = "<?=Yii::app()->request->baseUrl?>"+"/";
 function uploadImage(forma, input, jav) {
 
 	var file = jav.files[0];
@@ -307,7 +309,7 @@ function uploadImage(forma, input, jav) {
 
 		return false;
 	}
-
+	
 	var imagefile = file.type;
 
 	var identificador = "#" + forma;
