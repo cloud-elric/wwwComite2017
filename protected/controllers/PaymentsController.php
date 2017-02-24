@@ -11,7 +11,7 @@ class PaymentsController extends Controller {
 	/**
 	 * Generar codigo para poder pagar en las tiendas
 	 */
-	public function actionOPCodeBar($description = null, $orderId = null, $amount) {
+	public function actionOPCodeBar($description = null, $orderId = null, $amount, $idToken) {
 		$this->layout = false;
 		
 		// Pruebas
@@ -38,7 +38,8 @@ class PaymentsController extends Controller {
 		$charge = $openpay->charges->create ( $chargeData );
 		
 		$this->render ( "//openpay/recibo", array (
-				"charge" => $charge 
+				"charge" => $charge,
+				"idToken" => $idToken
 		) );
 	}
 	
@@ -88,7 +89,7 @@ class PaymentsController extends Controller {
 		
 		// Verifica que no este pagada la orden de compra
 		$ordenCompra = PayOrdenesCompras::model ()->find ( array (
-				"condition" => "txt_order_number=:order AND b_pagado=0",
+				"condition" => "txt_order_open_pay=:order AND b_pagado=0",
 				"params" => array (
 						":order" => $order_id 
 				) 
@@ -202,10 +203,17 @@ class PaymentsController extends Controller {
 	/**
 	 * Guarda la orden de compra
 	 */
-	public function actionSaveOrdenCompra() {
+	public function actionSaveOrdenCompra($idToken) {
 		$this->layout = false;
 		// Obtiene datos de sesión
-		$idConcurso = Yii::app ()->user->concurso;
+		//$idConcurso = Yii::app ()->user->concurso;
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		$idConcurso = $conc->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		// Buscamos el concurso y mandamos error en caso de no encontrarlo
@@ -306,7 +314,8 @@ class PaymentsController extends Controller {
 			
 			$this->redirect ( array (
 					'usrUsuarios/checkOut',
-					't' => $ordenCompra->txt_order_number 
+					't' => $ordenCompra->txt_order_number,
+					'idToken' => $concurso->txt_token
 			) );
 			
 			// Yii::app()->request->getUserHostAddress
@@ -350,11 +359,19 @@ class PaymentsController extends Controller {
 	 * @param string $t        	
 	 * @throws CHttpException
 	 */
-	public function actionUpdateOrdenCompra($t = null) {
+	public function actionUpdateOrdenCompra($t = null, $idToken, $creditCard=null) {
 		
 		$this->layout = false;
 		// Obtiene datos de sesión
-		$idConcurso = Yii::app ()->user->concurso;
+		
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		
+		$idConcurso = $conc->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idConcurso );
@@ -388,6 +405,12 @@ class PaymentsController extends Controller {
 			) );
 			
 			$oc->id_payment_type = $formaPago->id_payment_type;
+			
+			if($formaPago->id_payment_type==2){
+					$oc->txt_order_open_pay = "opc_" . md5 ( uniqid ( "opc_" ) ) . uniqid ();
+			}else{
+				$oc->txt_order_open_pay = null;
+			}
 			$oc->save ();
 			
 			// Busca la configuracion para el tipo de pago
@@ -417,14 +440,24 @@ class PaymentsController extends Controller {
 						"currency_code" => $configuracionPagos->txt_config_2 
 				) );
 			} else if ($oc->id_payment_type == 2) {
-				
+				if($creditCard){
+					
+					$this->render ( "//openpay/showCreditCardPayments", array (
+							"description" =>  $oc->txt_description,
+								
+							"orderId" => $oc->txt_order_open_pay,
+							"amount" => $oc->num_total
+					) );
+					
+					return;
+				}
 				// Imprime el barcode de open pay
 				$this->redirect ( array (
 						"oPCodeBar",
 						"description" => $oc->txt_description,
-						
-						"orderId" => $oc->txt_order_number,
-						"amount" => $oc->num_total 
+						"orderId" => $oc->txt_order_open_pay,
+						"amount" => $oc->num_total,
+						"idToken" => $idToken
 				) );
 			}
 		} else { // Pago gratis

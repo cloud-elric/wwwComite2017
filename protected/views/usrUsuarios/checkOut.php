@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::t('general', 'checkoutTitle');
+$this->pageTitle = Yii::t ( 'general', 'checkoutTitle' );
 ?>
 <script type="text/javascript"
 	src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
@@ -125,19 +125,19 @@ if (! empty ( $cupon->txt_identificador_unico )) {
 											</div>
 											<div class="col-md-3 text-right">
 												<p class="prodcuto-total prodcuto-cupon">$ -<?php
-												
-												if ($cupon->b_porcentaje == 1) {
-													// echo $cupon->num_porcentaje_descuento;
-													echo (($cupon->num_porcentaje_descuento*$oc->num_sub_total)/100);
-												} else {
-													if (! empty ( $oc->id_cupon )) {
-														echo  number_format ( ((( $cupon->num_porcentaje_descuento))), 2 ) ;
-													} else {
-														echo  $oc->num_sub_total;
-													}
-												}
-												
-												?> CAD</p>
+	
+	if ($cupon->b_porcentaje == 1) {
+		// echo $cupon->num_porcentaje_descuento;
+		echo (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100);
+	} else {
+		if (! empty ( $oc->id_cupon )) {
+			echo number_format ( ((($cupon->num_porcentaje_descuento))), 2 );
+		} else {
+			echo $oc->num_sub_total;
+		}
+	}
+	
+	?> CAD</p>
 											</div>
 										</div>
 	<?php
@@ -159,20 +159,26 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 										<div class="col-md-4">
 			<?=$form->textField($cupon,'txt_identificador_unico',array("class"=>"form-control",'placeholder'=>Yii::t('checkout', 'placeholderCupon'))); ?>
 		</div>
-		<div class="col-md-8 padding-0">
-			<?php /* echo CHtml::button ( "", array (
-					"id" => "addCupon",
-					"class" => "btn btn-agregar-cupon",
-					'style' => 'font-size: .9em; padding: 5px 15px;',
-					'value' => 'Agregar cupón' 
-			) ); */
+										<div class="col-md-8 padding-0">
+			<?php 
+/*
+       * echo CHtml::button ( "", array (
+       * "id" => "addCupon",
+       * "class" => "btn btn-agregar-cupon",
+       * 'style' => 'font-size: .9em; padding: 5px 15px;',
+       * 'value' => 'Agregar cupón'
+       * ) );
+       */
 			?>
-			<button class="btn btn-agregar-cupon ladda-button" id="addCupon" data-style="zoom-out"><span class="ladda-label"><?=Yii::t('checkout', 'addCupon')?></span></button>
-		</div>
-		<div class="col-sm-12 col-md-12">
-			<p class="check-producto-no-valido"><?=$message?></p>
-		</div>
-	</div>	
+			<button class="btn btn-agregar-cupon ladda-button" id="addCupon"
+												data-style="zoom-out">
+												<span class="ladda-label"><?=Yii::t('checkout', 'addCupon')?></span>
+											</button>
+										</div>
+										<div class="col-sm-12 col-md-12">
+											<p class="check-producto-no-valido"><?=$message?></p>
+										</div>
+									</div>	
 	
 
 	<?php $this->endWidget(); ?>
@@ -275,6 +281,11 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 							id="pagarCheck" data-style="zoom-out">
 							<span class="ladda-label"><?=Yii::t('checkout', 'submit')?></span>
 						</button>
+
+						<!-- OPEN PAY -->
+						<!-- <div class="dgom-ui-opayForm-wrapper"></div> -->
+						<!-- CIERRA OPENPAY -->
+
 						<script>
 $(document).ready(function(){
 
@@ -285,6 +296,64 @@ $(document).ready(function(){
  		l.start();
 
 		$('#form-pago').submit();
+	});
+
+	$("#continuarOpenPayCredit").on("click", function(){
+		$("#modalOpenPayMensaje").modal("hide");
+		$('.dgom-ui-opayFormTarjeta-wrapper').html(loaginModal);
+		$('#modalOpenPayTarjetaCredito').modal('show');
+		
+		var form = $("#tipo-pago");
+		var data = form.serialize();
+		var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>/idToken/<?= $concurso->txt_token ?>/creditCard/1';
+		$.ajax({
+			url: url,
+			data:data,
+			type:"POST",
+			dataType:"html",
+			success:function(response){
+				// cerrarMensajeConfirmacion();
+				$('.dgom-ui-opayFormTarjeta-wrapper').html(response);
+			},
+			error:function(xhr, textStatus, error){
+				//alert("Error");
+			},
+			statusCode: {
+			    404: function() {
+			      //alert( "page not found" );
+			    },
+			    500:function(){
+				    //alert("Ocurrio un problema al intentar guardar");
+				}
+			 }
+		});
+		
+		
+	});
+
+	// Al dar click al botón de pagar
+	$("#continuarOpenPay").on("click", function(e){
+		e.preventDefault();
+		
+		var form = $("#tipo-pago");
+		var data = form.serialize();
+		var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>/idToken/<?= $concurso->txt_token ?>';
+
+		$.ajax({
+			url:url,
+			data:data,
+			method:'POST',
+			type:'HTML',
+			success:function(res){
+
+				managerFormaPago(res);
+				
+				
+			}	
+			
+			
+			});
+	
 	});
 
 	$('#pagarCheck').on('click', function(e){
@@ -300,22 +369,43 @@ $(document).ready(function(){
 			return false;
 		}
 
-		var form = $("#tipo-pago");
-		var data = form.serialize();
-		var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>';
+		var formaPago = $('input[name="tipoPago"]:checked', '#tipo-pago').data(
+		"name");
 
-		$.ajax({
-			url:url,
-			data:data,
-			method:'POST',
-			type:'HTML',
-			success:function(res){
-				$('#container-pay-pal').html(res);
-				$('#formPayPal').submit();
-			}	
+// Paypal
+if (formaPago == "Paypal") {
+	
+	var form = $("#tipo-pago");
+	var data = form.serialize();
+	var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>/idToken/<?= $concurso->txt_token ?>';
+
+	$.ajax({
+		url:url,
+		data:data,
+		method:'POST',
+		type:'HTML',
+		success:function(res){
+
+			managerFormaPago(res);
 			
 			
-			});
+		}	
+		
+		
+		});
+	
+} else if (formaPago == "Open Pay") {
+	// cerrarMensajeConfirmacion();
+	$('#modalOpenPayMensaje').modal('show');
+	
+	//$('#modalOpenPay').modal('show');
+//	var l = Ladda.create(document.getElementById('pagarCheck'));
+//		l.start();
+	l.stop();
+	
+}
+
+		
 		
 	});
 	
@@ -342,7 +432,7 @@ $(document).ready(function(){
 		var l = Ladda.create(this);
 	 	l.start();
 
-	 	var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>';
+	 	var url = '<?=Yii::app()->request->baseUrl?>/payments/updateOrdenCompra/t/<?=$oc->txt_order_number?>/idToken/<?= $concurso->txt_token ?>';
 		var form = $("#tipo-pago");
 		form.attr('action', url);
 
@@ -373,4 +463,155 @@ $(document).ready(function(){
 
 <!-- Open pay pal -->
 <div id="container-pay-pal"></div>
+
+
 <!-- Close pay pal -->
+
+
+
+
+<!-- Modal Ticket OpenPay -->
+<div class="modal fade modal-warning modal-open-pay" id="modalOpenPay"
+	aria-hidden="true" aria-labelledby="modalOpenPay"
+	aria-labelledby="exampleModalWarning" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg modal-center">
+		<div class="modal-content">
+
+			<!-- .modal-header -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<p class="modal-imprimir-ticket">
+					<i class="fa fa-print"></i> Imprimir ticket
+				</p>
+				<h4 class="modal-title">Ticket de OpenPay</h4>
+			</div>
+			<!-- end / .modal-header -->
+
+			<!-- .modal-body -->
+			<div class="modal-body">
+
+				<!-- .screen-pago-ticket -->
+				<div class="example box screen-pago-ticket"
+					data-options='{"direction": "vertical", "contentSelector": ">", "containerSelector": ">"}'>
+					<!-- SCROLL -->
+					<div>
+						<!-- SCROLL -->
+						<div>
+
+							<div class="dgom-ui-opayForm-wrapper"></div>
+
+						</div>
+						<!-- end / SCROLL -->
+					</div>
+					<!-- end / SCROLL -->
+				</div>
+				<!-- end / .screen-pago-ticket -->
+
+			</div>
+			<!-- end / .modal-body -->
+
+		</div>
+	</div>
+</div>
+<!-- end / Modal Ticket OpenPay-->
+
+
+
+<!-- Modal Pago tarjeta de credito -->
+<div class="modal fade modal-warning modal-open-pay"
+	id="modalOpenPayTarjetaCredito" aria-hidden="true"
+	aria-labelledby="modalOpenPayTarjetaCredito"
+	aria-labelledby="exampleModalWarning" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg modal-center">
+		<div class="modal-content">
+
+			<!-- .modal-header -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+
+				<h4 class="modal-title">Pagar con tarjeta de crédito o débito</h4>
+			</div>
+			<!-- end / .modal-header -->
+
+			<!-- .modal-body -->
+			<div class="modal-body">
+
+				<!-- .screen-pago-ticket -->
+				<div class="example box screen-pago-ticket"
+					data-options='{"direction": "vertical", "contentSelector": ">", "containerSelector": ">"}'>
+					<!-- SCROLL -->
+					<div>
+						<!-- SCROLL -->
+						<div>
+
+							<div class="dgom-ui-opayFormTarjeta-wrapper"></div>
+
+						</div>
+						<!-- end / SCROLL -->
+					</div>
+					<!-- end / SCROLL -->
+				</div>
+				<!-- end / .screen-pago-ticket -->
+
+			</div>
+			<!-- end / .modal-body -->
+
+		</div>
+	</div>
+</div>
+<!-- end / Modal Ticket OpenPay-->
+
+
+<!-- Modal Mensaje referente al Pago OpenPay -->
+<div class="modal fade modal-primary in modal-open-pay-mensaje"
+	id="modalOpenPayMensaje" aria-hidden="true"
+	aria-labelledby="modalOpenPayMensaje" role="dialog" tabindex="-1">
+	<!-- .modal-dialog -->
+	<div class="modal-dialog modal-center">
+		<!-- .modal-content -->
+		<div class="modal-content">
+
+			<!-- .modal-header -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<i class="icon ion-close-circled"></i>
+				</button>
+				<h4 class="modal-title">
+					<i class="icon ion-alert-circled"></i> Aviso
+				</h4>
+			</div>
+			<!-- end / .modal-header -->
+
+			<!-- .modal-body -->
+			<div class="modal-body">
+				<p>
+					Recuerda que una vez realizado tu pago puede tardar <span>hasta 72
+						hrs</span> para verse reflejado en nuestra plataforma.
+				</p>
+			</div>
+			<!-- end / .modal-body -->
+
+			<!-- .modal-footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-red btn-small"
+					data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-green btn-small"
+					id="continuarOpenPay">Generar ticket</button>
+				<button type="button" class="btn btn-green btn-small"
+					id="continuarOpenPayCredit">Pagar con tarjeta de crédito</button>
+			</div>
+			<!-- end / .modal-footer -->
+
+		</div>
+		<!-- end / .modal-content -->
+	</div>
+	<!-- end / .modal-dialog -->
+</div>
+<!-- end / Modal Mensaje referente al Pago OpenPay -->

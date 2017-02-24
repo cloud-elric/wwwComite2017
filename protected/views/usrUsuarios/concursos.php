@@ -13,7 +13,7 @@ foreach($concursosDisponibles as $concurso){
 				<h2><?=$concurso->txt_name?></h2>
 				
 				<div class="form-group text-center">
-					<a href="<?=Yii::app()->request->baseUrl?>/" class="btn btn-primary">Entrar</a>
+					<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concurso->txt_token?>" class="btn btn-primary">Entrar</a>
 				</div>
 			</div> 
 		</div>

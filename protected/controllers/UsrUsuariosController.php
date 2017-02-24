@@ -259,11 +259,18 @@ class UsrUsuariosController extends Controller {
 	
 	/**
 	 */
-	public function actionConcurso() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionConcurso($idToken) {
+		//$idConcurso = Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
+		$concurso = ConContests::model()->find(array(
+			'condition' => "txt_token=:idToken",
+			'params' => array(
+				':idToken' => $idToken		
+			)
+		));
+		$idC = $concurso->id_contest;
 		
-		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
+		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idC );
 		
 		// if(Yii::app()->user->concursante->txt_correo="humberto@2gom.com.mx"){
 		// $this->usuarioNoInscrito ();
@@ -275,20 +282,20 @@ class UsrUsuariosController extends Controller {
 		
 		// Si el usuario esta inscrito lo enviamos a ver sus fotografias
 		if ($isUsuarioInscrito) {
-			$this->usuarioInscrito ();
+			$this->usuarioInscrito ($idUsuario, $idC);
 			// Si el usuario no esta inscrito
 		} else {
 			
-			$this->usuarioNoInscrito ();
+			$this->usuarioNoInscrito ($idUsuario, $idC);
 		}
 	}
 	
 	/**
 	 * Usuario inscrito
 	 */
-	public function usuarioInscrito() {
-		$idConcurso = Yii::app ()->user->concurso;
-		$idUsuario = Yii::app ()->user->concursante->id_usuario;
+	public function usuarioInscrito($idUsuario, $idC) {
+		$idConcurso = $idC;
+		//$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		$concursoDatos = ConRelUsersContest::model ()->find ( array (
 				"condition" => "id_usuario=:idUsuario AND id_contest=:idConcurso",
@@ -410,9 +417,9 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Usuario no inscrito
 	 */
-	public function usuarioNoInscrito() {
+	public function usuarioNoInscrito($idUsuario, $idC) {
 		$this->layout = 'mainScroll';
-		$idConcurso = Yii::app ()->user->concurso;
+		$idConcurso = $idC;
 		
 		$concurso = ConContests::model ()->findByPk ( $idConcurso );
 		
@@ -1246,10 +1253,17 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Checkout
 	 */
-	public function actionCheckOut($t = null) {
+	public function actionCheckOut($t = null, $idToken) {
 		$this->layout = 'mainScroll';
 		
-		$idContest = Yii::app ()->user->concurso;
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		
+		$idContest = $conc->id_contest;
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idContest );
 		
 		if (empty ( $oc )) {

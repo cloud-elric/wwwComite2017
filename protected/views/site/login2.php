@@ -37,6 +37,7 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 
 				<img src="<?= Yii::app()->request->baseUrl ?>/images/hardcode/WPC-Logo.png"
 					alt="CFM">
+				<!-- <h1></h1> -->
 
 				<?php
 				$form = $this->beginWidget ( 'CActiveForm', array (
@@ -47,7 +48,8 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 						),
 						'htmlOptions' => array (
 								"autocomplete" => "off" 
-						) 
+						),
+						'action' => '/wwwComite2017/usrUsuarios/concursos'
 				) );
 				?>
 
@@ -77,10 +79,6 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 					onClick="logInWithFacebook()" scope="public_profile, email">
 					<i class="fa fa-facebook"></i> <?=Yii::t('login', 'facebook')?>
 				</button> 
-
-					<?= CHtml::link(Yii::t('login', 'necesitarCuenta'), array("usrUsuarios/registrar/"), array("class"=>"necesitoe btn btn-blue btn-green-sign")); ?>
-					
-					<?= CHtml::link(Yii::t('login','olvidePass'), array("site/requestPassword"), array("class"=>"olvide"))?>
 
 					<!-- <a class="necesito" href="">Necesito una cuenta</a> -->
 					<?php # CHtml::link(Yii::t('login', 'necesitarCuenta'), array("usrUsuarios/registrar/t/".$concurso->txt_token), array("class"=>"necesito")); ?>
