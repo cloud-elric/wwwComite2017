@@ -516,38 +516,6 @@ $(document)
 						$(".login-form-flip").removeClass("flipped");
 					});
 					
-					$("#continuarOpenPayCredit").on("click", function(){
-						$("#modalOpenPayMensaje").modal("hide");
-						$('.dgom-ui-opayFormTarjeta-wrapper').html(loaginModal);
-						$('#modalOpenPayTarjetaCredito').modal('show');
-						
-						var form = $("#form-pago");
-						var data = form.serialize();
-						
-						$.ajax({
-							url: base+"openpay/saveOrdenCompra",
-							data:data,
-							type:"POST",
-							dataType:"html",
-							success:function(response){
-								// cerrarMensajeConfirmacion();
-								$('.dgom-ui-opayFormTarjeta-wrapper').html(response);
-							},
-							error:function(xhr, textStatus, error){
-								//alert("Error");
-							},
-							statusCode: {
-							    404: function() {
-							      //alert( "page not found" );
-							    },
-							    500:function(){
-								    //alert("Ocurrio un problema al intentar guardar");
-								}
-							 }
-						});
-						
-						
-					});
 
 
 				});
@@ -737,17 +705,26 @@ function cerrarMensajeConfirmacion() {
 
 // Formulario
 function managerFormaPago(res) {
-	var formaPago = $('input[name="tipoPago"]:checked', '#form-pago').data(
+	var formaPago = $('input[name="tipoPago"]:checked', '#tipo-pago').data(
 			"name");
-
+	
 	// Paypal
 	if (formaPago == "Paypal") {
+		
 		$('#container-pay-pal').html(res);
 		$('#formPayPal').submit();
+		
 	} else if (formaPago == "Open Pay") {
 		// cerrarMensajeConfirmacion();
 		$('.dgom-ui-opayForm-wrapper').html(res);
-
+		
+		$('#modalOpenPayMensaje').modal('hide');
+		
+		$('#modalOpenPay').modal('show');
+//		var l = Ladda.create(document.getElementById('pagarCheck'));
+// 		l.start();
+//		l.stop();
+		
 	}
 }
 
