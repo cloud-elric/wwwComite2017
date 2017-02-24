@@ -2,6 +2,18 @@
 $cs = Yii::app ()->getClientScript ();
 $cs->registerCssFile ( Yii::app ()->request->baseUrl . "/css/concursos.css" );
 ?>
+<style>
+
+.tab-pane .card-concurso .panel{
+	background-repeat: no-repeat;
+	background-size:cover;
+	background-position:center;
+}
+
+	.panel-body{
+		min-height: 150px;
+	}
+</style>
 <div class="container concursos">
 
 <ul class="nav nav-tabs">
@@ -17,17 +29,15 @@ $cs->registerCssFile ( Yii::app ()->request->baseUrl . "/css/concursos.css" );
 	
 foreach($concursosDisponibles as $concurso){
 ?>
+<a class="card-concurso" href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concurso->txt_token?>">
 	<div class="col-md-4">
 		<div class="panel" style="background-image:url(<?=Yii::app()->request->baseUrl?>/images/<?=$concurso->txt_token?>/<?=$concurso->txt_ico_url?>)">
 			<div class="panel-body">
-				<h2><?=$concurso->txt_name?></h2>
-				
-				<div class="form-group text-center">
-					<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concurso->txt_token?>" class="btn btn-primary">Entrar</a>
-				</div>
+				<!--  <h2><?=$concurso->txt_name?></h2>-->
 			</div> 
 		</div>
 	</div>
+	</a>
 	<?php }?>	
 	</div>
   </div>
@@ -36,26 +46,28 @@ foreach($concursosDisponibles as $concurso){
 	<?php 
 	//$fechaActual = Utils::getFechaActual();
 foreach($concursosUsuario as $concursoUsuario){
+	
+	
+
+if($concursoUsuario->id_status == 2){
+	
+						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/concurso?idToken='.$concursoUsuario->txt_token;
+					}else if($concursoUsuario->id_status == 3){ 
+						$hrefConcurso =Yii::app()->request->baseUrl.'/usrUsuarios/fotosUsuario';
+					}else if($concursoUsuario->id_status >= 4){
+						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/calificaciones';
+					}
+	
 ?>
+<a class="card-concurso" href="<?=$hrefConcurso?>">
 	<div class="col-md-4">
 		<div class="panel" style="background-image:url(<?=Yii::app()->request->baseUrl?>/images/<?=$concursoUsuario->txt_token?>/<?=$concursoUsuario->txt_ico_url?>)">
 			<div class="panel-body">
-				<h2><?=$concursoUsuario->txt_name?></h2>
-				
-				<div class="form-group text-center">
-					<?php //if($concursoUsuario->fch_fin_inscripcion > $fechaActual){
-					if($concursoUsuario->id_status == 2){
-					?>
-						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoUsuario->txt_token?>" class="btn btn-primary">Entrar</a>
-					<?php }else if($concursoUsuario->id_status == 3){ ?>
-						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoUsuario->txt_token?>" class="btn btn-primary">Entrar</a>
-					<?php }else if($concursoUsuario->id_status >= 4){ ?>
-						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/calificaciones" class="btn btn-primary">Entrar</a>
-					<?php }?>
-				</div>
+				<!-- <h2><?=$concursoUsuario->txt_name?></h2>-->		
 			</div> 
 		</div>
 	</div>
+	</a>
 	<?php }?>	
 	</div>
     
@@ -66,17 +78,15 @@ foreach($concursosUsuario as $concursoUsuario){
 	<?php 
 foreach($concursosProximos as $concursoProximo){
 ?>
+<a class="card-concurso">
 	<div class="col-md-4">
 		<div class="panel" style="background-image:url(<?=Yii::app()->request->baseUrl?>/images/<?=$concursoProximo->txt_token?>/<?=$concursoProximo->txt_ico_url?>)">
 			<div class="panel-body">
-				<h2><?=$concursoProximo->txt_name?></h2>
-				
-				<div class="form-group text-center">
-					<!-- <a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoProximo->txt_token?>" class="btn btn-primary">Entrar</a> -->
-				</div>
+				<!--  <h2><?=$concursoProximo->txt_name?></h2>-->
 			</div> 
 		</div>
 	</div>
+	</a>
 	<?php }?>	
 	</div>
    

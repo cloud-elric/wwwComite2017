@@ -1225,19 +1225,18 @@ class UsrUsuariosController extends Controller {
 	// $this->layout = 'mainScroll';
 	// $this->render ( 'reinscrip' );
 	// }
-	public function actionRevisarPago() {
+	public function actionRevisarPago($contest) {
 		$this->layout = 'mainRevisarPago';
 		
-		$idConcurso = Yii::app ()->user->concurso;
+		$concurso =  ConContests::getConcusoByToken($contest);
+		$idConcurso = $concurso->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
-		// Recupera el concurso
-		$concurso = $this->searchConcurso ( $idConcurso );
 		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
 		
 		if ($isUsuarioInscrito) {
-			$this->redirect ( "concurso" );
+			$this->redirect ( array("usrUsuarios/concurso",'idToken'=>$contest));
 		} else {
 			$this->render ( "revisarPago" );
 		}

@@ -1,4 +1,4 @@
-var base = 'http://localhost/wwwComiteCanadaConcursante/';
+var base = 'http://localhost/wwwComite2017/';
 //var base = 'https://globaljudging.com/community/';
 //var base = 'https://hazclicconmexico.comitefotomx.com/concursar/';
 

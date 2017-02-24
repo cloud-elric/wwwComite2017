@@ -185,6 +185,19 @@ class ConContests extends CActiveRecord {
 		return $concursosUsuario;
 	}
 	
+	public static function getConcusoByToken($token){
+			$criteria = new CDbCriteria ();
+		$criteria->condition = "txt_token=:token";
+		$criteria->params = array (
+				":token" => $token,
+		);
+		$concurso = ConContests::model()->find($criteria);
+	
+	
+	
+		return $concurso;
+	}
+	
 	public static function getConcursosProximosPais($pais){
 		$criteria = new CDbCriteria ();
 		$criteria->condition = "id_pais=:idPais AND id_status=1";
