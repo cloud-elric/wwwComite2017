@@ -16,28 +16,29 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 	<div class="row">
 
 		<!-- .col -->
-		<div class="login-col-flex col-sm-6 col-md-6">
-			<div class="login-text">
-				<h2>
+<!--  		<div class="login-col-flex col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">  -->
+<!-- 			<div class="login-text"> -->
+<!-- 				<h2>
 					<?=Yii::t('general', 'bienvenido')?> <img
 						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png"
-						alt="">
-				</h2>
+						alt=""> -->
+<!-- 				</h2> -->
 				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
-				<a href="" target="_blank"
-					class="btn btn-blue"><?=Yii::t('general', 'consulta')?></a>
-			</div>
-		</div>
+<!-- 				<a href="" target="_blank" 
+					class="btn btn-blue"><?=Yii::t('general', 'consulta')?></a>-->
+<!-- 			</div> -->
+<!--  		</div>  -->
 		<!-- end / .col -->
 
 		<!-- .col -->
-		<div class="login-col-flex col-sm-6 col-md-6">
+		<div class="login-col-flex col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
 			<!-- .login-form -->
 			<div class="login-form">
 
-				<img src="<?= Yii::app()->request->baseUrl ?>/images/hardcode/WPC-Logo.png"
-					alt="CFM">
-
+				<img style="margin-bottom:15px;" src="<?= Yii::app()->request->baseUrl ?>/images/logos/logoGJ.png"
+					alt="Global judging">
+				<h3 class="form-group">Global judging</h3>
+					
 				<?php
 				$form = $this->beginWidget ( 'CActiveForm', array (
 						'id' => 'login-form',
@@ -51,7 +52,7 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 				) );
 				?>
 
-					<p><?=Yii::t('login','instrucciones')?></p>
+					<p class="form-group"><?=Yii::t('login','instrucciones')?></p>
 					
 					<?= $form->textField($model,'username', array("class"=>"form-control",'placeholder'=>Yii::t('login', 'usuario'))); ?>
 					<?= $form->passwordField($model,'password', array("class"=>"form-control",'placeholder'=>Yii::t('login', 'password'))); ?>
@@ -93,7 +94,6 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 			<!-- end / .login-form -->
 		</div>
 		<!-- end / .col -->
-
 	</div>
 	<!-- end / .row -->
 </div>

@@ -426,6 +426,7 @@ class PaymentsController extends Controller {
 						"custom" => Yii::app ()->user->concursante->id_usuario,
 						"notify_url" => Yii::app ()->params ["notifyUrl"],
 						"lc" => "US",
+						'contest'=>$conc->txt_token,
 						// "business" => "beto@2gom.com.mx",
 						"business" => $configuracionPagos->txt_config_1,
 						"item_name" => '5044-002-'.$oc->txt_description,
