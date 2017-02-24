@@ -38,7 +38,9 @@
 
 <link rel="stylesheet"
 	href="<?php echo Yii::app()->theme->baseUrl ?>/css/cfm.css">
-
+<script>
+var base = '<?php echo Yii::app()->request->baseUrl; ?>/';
+</script>
 <script src="<?php echo Yii::app()->baseUrl ?>/js/jquery-1.9.1.min.js"></script>
 
 <script async src="<?php echo Yii::app()->baseUrl ?>/js/cfm.js"></script>

@@ -14,7 +14,9 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
-	
+	<script>
+	var base = '<?php echo Yii::app()->request->baseUrl; ?>/';
+</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.12.3.min.js"></script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
