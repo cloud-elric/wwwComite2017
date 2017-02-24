@@ -11,6 +11,13 @@ $fotosCompetidor = WrkPics::model ()->findAll ( array (
 		) 
 ) );
 
+$con = ConContests::model()->find(array(
+	'condition' => 'id_contest=:idContest',
+	'params' => array(
+		':idContest' => $idConcurso
+	)
+));
+
 $this->pageTitle = Yii::t('general', 'subirFotosTitle');
 
 ?>
@@ -124,7 +131,7 @@ $this->pageTitle = Yii::t('general', 'subirFotosTitle');
 			<!-- .modal-footer -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-red btn-small" data-dismiss="modal"><?=Yii::t('fotosUpload', 'cancelBtn')?></button>
-                <button type="button" id="aceptarConcursar" data-id="<?= $idConcurso ?>" class="btn btn-green participar btn-small"><?=Yii::t('fotosUpload', 'successBtn')?></button>
+                <button type="button" id="aceptarConcursar" data-token="<?= $con->txt_token ?>" class="btn btn-green participar btn-small"><?=Yii::t('fotosUpload', 'successBtn')?></button>
 			</div>
 			<!-- end / .modal-footer -->
 

@@ -48,7 +48,7 @@ foreach($concursosUsuario as $concursoUsuario){
 					?>
 						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoUsuario->txt_token?>" class="btn btn-primary">Entrar</a>
 					<?php }else if($concursoUsuario->id_status == 3){ ?>
-						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/fotosUsuario" class="btn btn-primary">Entrar</a>
+						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/concurso?idToken=<?=$concursoUsuario->txt_token?>" class="btn btn-primary">Entrar</a>
 					<?php }else if($concursoUsuario->id_status >= 4){ ?>
 						<a href="<?=Yii::app()->request->baseUrl?>/usrUsuarios/calificaciones" class="btn btn-primary">Entrar</a>
 					<?php }?>
