@@ -4,12 +4,12 @@ return array(
 		'headerCupon'=>'CUPONS',
 		'addCupon'=>'Agregar cupon',
 		'placeholderCupon'=>'Cupon',
-		'cuponNoExite'=>'Cupon Code no validate',
-		'headerTipoPago'=>'PAYMENT GATEWAY',
-		'totalAntesDeImpuesto'=>'Total before tax',
-		'impuesto'=>'Tax',
+		'cuponNoExite'=>'Cupon no valido',
+		'headerTipoPago'=>'Forma de pago',
+		'totalAntesDeImpuesto'=>'Subtotal',
+		'impuesto'=>'Impusto',
 		'total'=>'Total',
-		'submit'=>'Make payment',
+		'submit'=>'Realizar pago',
 		'warningPay'=>'Debe seleccionar una forma de pago'
 		
 		

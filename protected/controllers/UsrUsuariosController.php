@@ -1396,7 +1396,13 @@ class UsrUsuariosController extends Controller {
 		$this->render('avance');
 	}
 	
-	public function actionCalificaciones(){
+	public function actionCalificaciones($idToken){
+		$concurso = ConContests::model()->find(array(
+			'condition' => 'txt_token=:idToken',
+			'params' => array(
+				':idToken' => $idToken
+			)
+		));
 		
 		$this->render('calificaciones');
 	}

@@ -16,7 +16,7 @@ $this->pageTitle = Yii::t ( 'general', 'checkoutTitle' );
 			<div class="text">
 				<h2 class="bienvenido">
 					<?=Yii::t('general', 'bienvenido')?> <img
-						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png"
+						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/<?= $concurso->txt_banner_img ?>"
 						alt="<?=$concurso->txt_name?>">
 				</h2>
 				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
@@ -106,7 +106,7 @@ $this->pageTitle = Yii::t ( 'general', 'checkoutTitle' );
 												<p class="prodcuto"><?=$oc->txt_description?></p>
 											</div>
 											<div class="col-md-3 text-right">
-												<p class="prodcuto-total">$ <?=$oc->num_sub_total?> CAD</p>
+												<p class="prodcuto-total">$ <?=$oc->num_sub_total . " " . $concurso->txt_moneda?></p>
 											</div>
 										</div>
 
@@ -137,7 +137,7 @@ if (! empty ( $cupon->txt_identificador_unico )) {
 		}
 	}
 	
-	?> CAD</p>
+	?><?= " " . $concurso->txt_moneda ?></p>
 											</div>
 										</div>
 	<?php
@@ -238,10 +238,10 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 		<?=Yii::t('checkout', 'totalAntesDeImpuesto')?> <span>$ <?php
 		if ($cupon->b_porcentaje == 1) {
 			// echo $cupon->num_porcentaje_descuento;
-			echo $subTotal = number_format ( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100)), 2 ) . " CAD";
+			echo $subTotal = number_format ( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100)), 2 ) . " " . $concurso->txt_moneda;
 		} else {
 			if (! empty ( $oc->id_cupon )) {
-				echo $subTotal = number_format ( ((($oc->num_sub_total - $cupon->num_porcentaje_descuento))), 2 ) . " CAD";
+				echo $subTotal = number_format ( ((($oc->num_sub_total - $cupon->num_porcentaje_descuento))), 2 ) . " " . $concurso->txt_moneda;
 			} else {
 				echo $subTotal = $oc->num_sub_total . ' CAD';
 			}
@@ -249,9 +249,9 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 		?></span>
 											</div>
 											<div class="tax-precio">
- 			<?=Yii::t('checkout', 'impuesto')?> <span>$ <?=$tax = number_format ( $subTotal * (0.13), 2 ) . " CAD";?></span>
+ 			<?=Yii::t('checkout', 'impuesto')?> <span>$ <?=$tax = number_format ( $subTotal * (0.13), 2 ) . " " . $concurso->txt_moneda;?></span>
 											</div>
-											<div class="total-precio"><?=Yii::t('checkout', 'total')?> <span>$<?=$oc->num_total?> CAD</span>
+											<div class="total-precio"><?=Yii::t('checkout', 'total')?> <span>$<?=$oc->num_total . " " . $concurso->txt_moneda ?></span>
 											</div>
 										</div>
 									</div>
@@ -415,7 +415,7 @@ if (formaPago == "Paypal") {
 <?php }else{?>
 	<button class="btn btn-yellow btn-make-payment ladda-button"
 							id="pagarCheckFree" data-style="zoom-out">
-							<span class="ladda-label">Continue</span>
+							<span class="ladda-label">Continuar</span>
 						</button>
 
 						<script>

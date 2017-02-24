@@ -16,7 +16,7 @@ $this->pageTitle = Yii::t('general', 'inscripcionTitle');
 			<div class="text">
 				<h2 class="bienvenido">
 					<?=Yii::t('general', 'bienvenido')?> <img
-						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png"
+						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/<?= $concurso->txt_banner_img ?>"
 						alt="<?=$concurso->txt_name?>">
 				</h2>
 				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
@@ -130,7 +130,7 @@ $this->pageTitle = Yii::t('general', 'inscripcionTitle');
 												</div>
 											</div>
 											<div class="col-sm-4 col-md-4 padding-0 text-right">
-												<span class="text-right-precio">$ <?php echo $producto->num_price?></span>
+												<span class="text-right-precio">$ <?php echo $producto->num_price . " " . $concurso->txt_moneda ?></span>
 											</div>
 										<?php
 			
@@ -155,7 +155,7 @@ echo CHtml::radioButton ( "subProducto", false, array (
 											?>
 										<label
 													for="<?="subProducto".$subProductos->txt_product_number?>">
-													<p><?=$subProductos->txt_name?></p> <span>+ $ <?=$subProductos->num_price?></span>
+													<p><?=$subProductos->txt_name?></p> <span>+ $ <?=$subProductos->num_price . " " . $concurso->txt_moneda?></span>
 												</label>
 												<div class="check"></div>
 											</div>

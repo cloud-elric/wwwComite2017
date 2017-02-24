@@ -53,9 +53,9 @@ if($concursoUsuario->id_status == 2){
 	
 						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/concurso?idToken='.$concursoUsuario->txt_token;
 					}else if($concursoUsuario->id_status == 3){ 
-						$hrefConcurso =Yii::app()->request->baseUrl.'/usrUsuarios/fotosUsuario';
+						$hrefConcurso =Yii::app()->request->baseUrl.'/usrUsuarios/concurso?idToken='.$concursoUsuario->txt_token;
 					}else if($concursoUsuario->id_status >= 4){
-						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/calificaciones';
+						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/calificaciones?idToken='.$concursoUsuario->txt_token;
 					}
 	
 ?>
