@@ -1420,6 +1420,11 @@ class UsrUsuariosController extends Controller {
 	protected function beforeAction($action){
 // 		echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 // 		exit();
+
+		if($action->id == 'registrar'){
+			return parent::beforeAction($action);
+		}
+		
 		$this->verificarUsuario($this->idUs, $this->idCon);
 		//exit();
 		return parent::beforeAction($action);

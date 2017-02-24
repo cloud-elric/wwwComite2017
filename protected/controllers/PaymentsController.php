@@ -387,7 +387,8 @@ class PaymentsController extends Controller {
 		if ($oc->num_total == 0) {
 			
 			$this->redirect ( array ('payments/savePagoRecibido', 
-					't'=>$oc->txt_order_number 
+					't'=>$oc->txt_order_number,
+					'idToken' => $conc->txt_token
 			) );
 			
 		}
@@ -468,14 +469,21 @@ class PaymentsController extends Controller {
 	/**
 	 * Genera el pago para el cliente
 	 */
-	public function actionSavePagoRecibido($t = null) {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionSavePagoRecibido($t = null, $idToken) {
+		//$idConcurso = Yii::app ()->user->concurso;
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		$idConcurso = $conc->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idConcurso );
 		
 		if (empty ( $oc ) || $oc->num_total > 0) {
-			$this->redirect ( array('usrUsuarios/concurso'));
+			$this->redirect ( array('usrUsuarios/concurso?idToken='.$idToken));
 			return;
 			throw new CHttpException ( 404, 'The requested page does not exist.' );
 		}
@@ -487,7 +495,7 @@ class PaymentsController extends Controller {
 			
 		}
 		
-		$this->redirect ( array('usrUsuarios/concurso'));
+		$this->redirect ( array('usrUsuarios/concurso?idToken='.$idToken));
 		return;
 	}
 	
