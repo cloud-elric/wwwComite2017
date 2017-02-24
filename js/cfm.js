@@ -458,11 +458,11 @@ $(document)
 							.on(
 									"click",
 									function() {
-										var idConcurso = $('#aceptarConcursar').data('id');
+										var idToken = $('#aceptarConcursar').data('token');
 										$
 												.ajax({
 													url : base
-															+ "usrUsuarios/usurioParticipar?idCon="+idConcurso,
+															+ "usrUsuarios/usurioParticipar?idTok="+idToken,
 													success : function() {
 														$(".participarCloud")
 																.css("display",

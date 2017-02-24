@@ -63,8 +63,7 @@ if($concursoUsuario->id_status == 2){
 	<div class="col-md-4">
 		<div class="panel" style="background-image:url(<?=Yii::app()->request->baseUrl?>/images/<?=$concursoUsuario->txt_token?>/<?=$concursoUsuario->txt_ico_url?>)">
 			<div class="panel-body">
-				<!-- <h2><?=$concursoUsuario->txt_name?></h2>-->
-				
+				<!-- <h2><?=$concursoUsuario->txt_name?></h2>-->		
 			</div> 
 		</div>
 	</div>

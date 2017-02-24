@@ -277,6 +277,8 @@ class UsrUsuariosController extends Controller {
 		$this->idUs = $idUsuario;
 		$this->idCon = $idC;
 		
+		$this->verificarUsuario($idUsuario, $idC);
+		
 		//$this->verificarUsuario($idUsuario, $idC);
 		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idC );
@@ -1108,13 +1110,31 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Action para cuando el usuario decide participar al concurso
 	 */
-	public function actionUsurioParticipar($idCon) {
-		$idConcurso = $idCon;//Yii::app ()->user->concurso;
+	public function actionUsurioParticipar($idTok) {
+		$concurso = ConContests::model()->find(array(
+			'condition' => 'txt_token=:idToken',
+			'params' => array(
+				':idToken' => $idTok
+			)
+		));
+		
+		$idConcurso = $concurso->id_contest;//Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$tokenUsuario = Yii::app ()->user->concursante->txt_usuario_number;
 		
+		$rel = ConRelUsersContest::model()->find(array(
+			'condition' => 'id_usuario=:idUs AND id_contest=:idCon',
+			'params' => array(
+				':idUs' => $idUsuario,
+				':idCon' => $idConcurso
+			)
+		));
+		if(!$rel){
+			return false;
+		}
+		
 		// Recupera el concurso
-		$concurso = $this->searchConcurso ( $idConcurso );
+		//$concurso = $this->searchConcurso ( $idConcurso );
 		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
 		
@@ -1154,7 +1174,8 @@ class UsrUsuariosController extends Controller {
 				$foto->save ();
 			}
 			
-			$usuario->b_participa = 1;
+			$rel->b_participa = 1;
+			$rel->save();
 			$usuario->save ();
 			
 			Yii::app ()->user->setState ( "concursante", $usuario );
@@ -1397,6 +1418,8 @@ class UsrUsuariosController extends Controller {
 	}
 	
 	protected function beforeAction($action){
+// 		echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+// 		exit();
 		$this->verificarUsuario($this->idUs, $this->idCon);
 		//exit();
 		return parent::beforeAction($action);
