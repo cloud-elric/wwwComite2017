@@ -8,7 +8,7 @@ class OpenpayController extends Controller {
 		if (isset ( $_POST ["token_id"] ) && $_POST ["orderId"]) {
 			
 			$ordenCompra = PayOrdenesCompras::model ()->find ( array (
-					"condition" => "txt_order_number=:orderId",
+					"condition" => "txt_order_open_pay=:orderId",
 					"params" => array (
 							":orderId" => $_POST ["orderId"] 
 					) 
