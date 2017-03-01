@@ -13,14 +13,17 @@ class PaymentsController extends Controller {
 	 */
 	public function actionOPCodeBar($description = null, $orderId = null, $amount, $idToken) {
 		$this->layout = false;
-		
+		$openPayCharge = new PayOpenPayCharge();
+		$openPayCharge->txt_token_charge = "opes_" . md5 ( uniqid ( "opes_" ) ) . uniqid ();
+		$openPayCharge->id_orden_compra = $orderId;
+		$openPayCharge->save();
 		// Pruebas
 		// $openpay = Openpay::getInstance('mgvepau0yawr74pc5p5x','pk_a4208044e7e4429090c369eae2f2efb3');
-		// $openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
+		 $openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
 		
 		// Para producción usar el que empieza con pk_ para pruebas el sk y
 		// para producción hay que cambiar el valor de la variable $sandboxMode a false en el archivo OpenpayApi.php
-		$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
+		//$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
 		
 		$custom = array (
 				"name" => "-",
@@ -32,10 +35,12 @@ class PaymentsController extends Controller {
 				'amount' => $amount,
 				'description' => $description,
 				'customer' => $custom,
-				'order_id' => $orderId 
+				'order_id' => $openPayCharge->txt_token_charge 
 		);
 		
 		$charge = $openpay->charges->create ( $chargeData );
+		
+		
 		
 		$this->render ( "//openpay/recibo", array (
 				"charge" => $charge,
@@ -87,16 +92,27 @@ class PaymentsController extends Controller {
 		$mc_gross = $transaction ['amount'];
 		$order_id = $transaction ['order_id'];
 		
-		// Verifica que no este pagada la orden de compra
-		$ordenCompra = PayOrdenesCompras::model ()->find ( array (
-				"condition" => "txt_order_open_pay=:order AND b_pagado=0",
+		$charge = PayOpenPayCharge::model()->find(array (
+				"condition" => "txt_token_charger=:order",
 				"params" => array (
 						":order" => $order_id 
 				) 
 		) );
 		
-		if (empty ( $ordenCompra )) {
+		if(empty($charge)){
 			$this->logOpenPay ( "El order ID no existe o ya esta marcado como completo :" . $order_id );
+		}
+		
+		// Verifica que no este pagada la orden de compra
+		$ordenCompra = PayOrdenesCompras::model ()->find ( array (
+				"condition" => "id_orden_compra=:order AND b_pagado=0",
+				"params" => array (
+						":order" => $charge->id_orden_compra 
+				) 
+		) );
+		
+		if (empty ( $ordenCompra )) {
+			$this->logOpenPay ( "La orden de compra no existe o ya esta marcado como completo :" . $order_id );
 			// @todo Hacer algo con el pago no encontrado en la BD
 			return;
 		}
@@ -442,12 +458,19 @@ class PaymentsController extends Controller {
 						"currency_code" => $configuracionPagos->txt_config_2 
 				) );
 			} else if ($oc->id_payment_type == 2) {
+				
 				if($creditCard){
+					
+					$openPayCharge = new PayOpenPayCharge();
+					
+					$openPayCharge->txt_token_charge = "opes_" . md5 ( uniqid ( "opes_" ) ) . uniqid ();
+					$openPayCharge->id_orden_compra = $oc->id_orden_compra;
+					$openPayCharge->save();
 					
 					$this->render ( "//openpay/showCreditCardPayments", array (
 							"description" =>  $oc->txt_description,
 								
-							"orderId" => $oc->txt_order_open_pay,
+							"orderId" => $openPayCharge->txt_token_charge,
 							"amount" => $oc->num_total
 					) );
 					
@@ -457,9 +480,9 @@ class PaymentsController extends Controller {
 				$this->redirect ( array (
 						"oPCodeBar",
 						"description" => $oc->txt_description,
-						"orderId" => $oc->txt_order_open_pay,
+						"orderId" => $oc->id_orden_compra,
 						"amount" => $oc->num_total,
-						"idToken" => $idToken
+						"idToken" => $idToken,
 				) );
 			}
 		} else { // Pago gratis

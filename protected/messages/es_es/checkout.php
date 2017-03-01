@@ -7,7 +7,7 @@ return array(
 		'cuponNoExite'=>'Cupon no valido',
 		'headerTipoPago'=>'Forma de pago',
 		'totalAntesDeImpuesto'=>'Subtotal',
-		'impuesto'=>'Impusto',
+		'impuesto'=>'Impuesto',
 		'total'=>'Total',
 		'submit'=>'Realizar pago',
 		'warningPay'=>'Debe seleccionar una forma de pago'

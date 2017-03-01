@@ -27,13 +27,13 @@ if ($debug) {
 			'Facebook' => array (
 					"data" => array (
 							
-							'app_id' => '1317189418298509',
-							'app_secret' => '6e9fd1cbdfc754e1be4ff5387573efc1',
+							'app_id' => '301217853545433',
+							'app_secret' => '46a431453e596edabee61cdf5267db72',
 // 							'app_id' => '301217853545433',
 // 							'app_secret' => '46a431453e596edabee61cdf5267db72',
 							'default_graph_version' => 'v2.6' 
 					),
-					"callBack" => 'http://localhost/wwwComiteCanadaConcursante/usrUsuarios/callbackFacebook/t/3c391e5c9feec1f95282a36bdd5d41ba' 
+					"callBack" => 'http://localhost/wwwComiteCanadaConcursante/usrUsuarios/callbackFacebook/' 
 			),
 			'PayPal' => array (
 					// 'payPalEmail' => 'beto@2gom.com.mx',

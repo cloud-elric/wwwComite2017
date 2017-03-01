@@ -934,10 +934,10 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Callback con la respuesta de facebook
 	 */
-	public function actionCallbackFacebook($t = null) {
+	public function actionCallbackFacebook() {
 		
 		// Buscamos el concurso
-		$concurso = $this->validarToken ( $t );
+		//$concurso = $this->validarToken ( $t );
 		
 		Yii::log ( "\n\r En callback de facebook", "debug", 'facebook' );
 		$fb = new Facebook ();
@@ -998,7 +998,7 @@ class UsrUsuariosController extends Controller {
 					$login->loginFacebook ( $entUsuario );
 					
 					// Crea sesiones
-					$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
+					//$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
 				} else {
 					Yii::app ()->user->setFlash ( "error", "No se pudieron guardar los datos." );
 					Yii::log ( "\n\r No se pudo guardar el usuario" . $this->getErrors ( $entUsuario->getErrors () ), "debug", 'facebook' );
@@ -1022,7 +1022,7 @@ class UsrUsuariosController extends Controller {
 				$login->loginFacebook ( $usuarioDB );
 				
 				// Crea sesiones
-				$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
+				//$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
 			}
 			Yii::log ( "\n\r Redirecciona al index", "debug", 'facebook' );
 			$this->redirect ( array (
@@ -1427,7 +1427,7 @@ class UsrUsuariosController extends Controller {
 // 		echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 // 		exit();
 
-		if($action->id == 'registrar'){
+		if($action->id == 'registrar' || $action->id=='callbackFacebook'){
 			return parent::beforeAction($action);
 		}
 		

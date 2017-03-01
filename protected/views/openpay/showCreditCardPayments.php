@@ -5,11 +5,11 @@
 <script type="text/javascript">
         $(document).ready(function() {
 
-//             OpenPay.setId('mgvepau0yawr74pc5p5x');
-//             OpenPay.setApiKey('pk_a4208044e7e4429090c369eae2f2efb3');
+            OpenPay.setId('mgvepau0yawr74pc5p5x');
+            OpenPay.setApiKey('pk_a4208044e7e4429090c369eae2f2efb3');
             
-            OpenPay.setId('mxmzxkxphmwhz8hnbzu8');
-            OpenPay.setApiKey('sk_a9c337fd308f4838854f422c802f4645');
+//             OpenPay.setId('mxmzxkxphmwhz8hnbzu8');
+//             OpenPay.setApiKey('sk_a9c337fd308f4838854f422c802f4645');
             //OpenPay.setApiKey('pk_b0439b892a08485a96f6d21bd897d6bc');
 
 //          OpenPay.setId('muqckh3xbqhszkgapcer');

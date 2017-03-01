@@ -603,7 +603,7 @@ $(document).ready(function(){
 				<button type="button" class="btn btn-red btn-small"
 					data-dismiss="modal">Cancelar</button>
 				<button type="button" class="btn btn-green btn-small"
-					id="continuarOpenPay">Generar ticket</button>
+					id="continuarOpenPay">Pagar en establecimiento</button>
 				<button type="button" class="btn btn-green btn-small"
 					id="continuarOpenPayCredit">Pagar con tarjeta de crédito</button>
 			</div>

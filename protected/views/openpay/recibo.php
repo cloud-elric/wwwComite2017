@@ -45,7 +45,7 @@ $fecha = date_create($concurso->fch_fin_inscripcion);
 				<h1>
 					$ <?=number_format($charge->amount)?><span>.00</span><small> <?=$charge->currency?></small>
 				</h1>
-				<h2 class="op-receipt-S-margin">+8 pesos por comisión</h2>
+				<h2 class="op-receipt-S-margin">más pesos por comisión</h2>
 			</div>
 		</div>
 		<div class="op-receipt-data-table-margin"></div>
@@ -96,8 +96,7 @@ $fecha = date_create($concurso->fch_fin_inscripcion);
 					<li>Acude a cualquier tienda afiliada</li>
 					<li>Entrega al cajero el código de barras y menciona que realizarás
 						un pago de servicio Paynet</li>
-					<li>Realizar el pago en efectivo por $ <?=number_format($charge->amount)?>.00 MXN (más $8 pesos por
-						comisión)</li>
+					<li>Realizar el pago en efectivo por $ <?=number_format($charge->amount)?>.00 MXN (más comisión)</li>
 					<li>Conserva el ticket para cualquier aclaración</li>
 				</ol>
 				<small>Si tienes dudas comunicate con el Comité Mexicano de Fotografía al correo contacto@comitefotomx.com</small>
@@ -109,7 +108,7 @@ $fecha = date_create($concurso->fch_fin_inscripcion);
 					<li>Seleccionar Paynet</li>
 					<li>Escanear el código de barras o ingresar el núm. de referencia</li>
 					<li>Ingresa la cantidad total a pagar</li>
-					<li>Cobrar al cliente el monto total más la comisión de $8 pesos</li>
+					<li>Cobrar al cliente el monto total más comisión</li>
 					<li>Confirmar la transacción y entregar el ticket al cliente</li>
 				</ol>
 				<small>Para cualquier duda sobre como cobrar, por favor llamar al
