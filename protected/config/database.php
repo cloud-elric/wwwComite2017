@@ -4,7 +4,9 @@ $dataBase = array ();
 if ($debug) {
 	$dataBase = array (
 				
+
 			'connectionString' => 'mysql:host=localhost;dbname=comite_2017',
+
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'root',

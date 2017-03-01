@@ -41,37 +41,6 @@ foreach($concursosDisponibles as $concurso){
 	<?php }?>	
 	</div>
   </div>
-  <div id="menu1" class="tab-pane fade">
-    <div class="row">
-	<?php 
-	//$fechaActual = Utils::getFechaActual();
-foreach($concursosUsuario as $concursoUsuario){
-	
-	
-
-if($concursoUsuario->id_status == 2){
-	
-						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/concurso?idToken='.$concursoUsuario->txt_token;
-					}else if($concursoUsuario->id_status == 3){ 
-						$hrefConcurso =Yii::app()->request->baseUrl.'/usrUsuarios/concurso?idToken='.$concursoUsuario->txt_token;
-					}else if($concursoUsuario->id_status >= 4){
-						$hrefConcurso = Yii::app()->request->baseUrl.'/usrUsuarios/calificaciones?idToken='.$concursoUsuario->txt_token;
-					}
-	
-?>
-<a class="card-concurso" href="<?=$hrefConcurso?>">
-	<div class="col-md-4">
-		<div class="panel" style="background-image:url(<?=Yii::app()->request->baseUrl?>/images/<?=$concursoUsuario->txt_token?>/<?=$concursoUsuario->txt_ico_url?>)">
-			<div class="panel-body">
-				<!-- <h2><?=$concursoUsuario->txt_name?></h2>-->		
-			</div> 
-		</div>
-	</div>
-	</a>
-	<?php }?>	
-	</div>
-    
-    
-  </div>
+ 
 </div>
 </div>

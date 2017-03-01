@@ -167,7 +167,7 @@ class SiteController extends Controller {
 	public function actionRequestPassword($t = null) {
 		$this->layout = 'mainLogin';
 		// Verifica que exita el concurso
-		$concurso = $this->verificarToken ( $t );
+		//$concurso = $this->verificarToken ( $t );
 		
 		// Iniciamos el modelo
 		$model = new LoginForm ();
@@ -210,7 +210,7 @@ class SiteController extends Controller {
 		}
 		$this->render ( "formRecoveryPass", array (
 				"model" => $model,
-				"concurso" => $concurso 
+				//"concurso" => $concurso 
 		) );
 	}
 	

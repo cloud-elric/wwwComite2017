@@ -1026,7 +1026,7 @@ class UsrUsuariosController extends Controller {
 			}
 			Yii::log ( "\n\r Redirecciona al index", "debug", 'facebook' );
 			$this->redirect ( array (
-					"usrUsuarios/concurso" 
+					"usrUsuarios/concursos" 
 			) );
 		}
 	}

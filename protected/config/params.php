@@ -17,7 +17,7 @@ if ($debug) {
 			// Configuracion para enviar correo
 			'SwifMailer' => array (
 					// "serverSMTP" => 'node01.tmdhosting710.com',
-					"serverSMTP" => 'us3.tmd.cloud',
+					"serverSMTP" => 'globaljudging.com',
 					"secure" => 'tls',
 					"port" => 465,
 					"userName" => 'support@globaljudging.com',
@@ -27,8 +27,8 @@ if ($debug) {
 			'Facebook' => array (
 					"data" => array (
 							
-							'app_id' => '301217853545433',
-							'app_secret' => '46a431453e596edabee61cdf5267db72',
+							'app_id' => '1199871320067085',
+							'app_secret' => 'e227548bda7d48daa72fff9d1eef864a',
 // 							'app_id' => '301217853545433',
 // 							'app_secret' => '46a431453e596edabee61cdf5267db72',
 							'default_graph_version' => 'v2.6' 
@@ -60,7 +60,7 @@ if ($debug) {
 			// Configuracion para enviar correo
 			'SwifMailer' => array (
 					// "serverSMTP" => 'node01.tmdhosting710.com',
-					"serverSMTP" => 'us3.tmd.cloud',
+					"serverSMTP" => 'globaljudging.com',
 					"secure" => 'tls',
 					"port" => 465,
 					"userName" => 'support@globaljudging.com',
@@ -72,8 +72,8 @@ if ($debug) {
 							
 // 							'app_id' => '1317189418298509',
 // 							'app_secret' => '6e9fd1cbdfc754e1be4ff5387573efc1',
-							'app_id' => '301217853545433',
-							'app_secret' => '46a431453e596edabee61cdf5267db72',
+							'app_id' => '1199871320067085',
+							'app_secret' => 'e227548bda7d48daa72fff9d1eef864a',
 							'default_graph_version' => 'v2.6' 
 					),
 					"callBack" => 'https://globaljudging.com/community/usrUsuarios/callbackFacebook/t/con_73cdf1c4f187ef82b94a945feae9d32a5783ddc623258' 
