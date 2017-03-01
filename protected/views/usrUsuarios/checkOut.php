@@ -302,6 +302,8 @@ $(document).ready(function(){
 		$("#modalOpenPayMensaje").modal("hide");
 		$('.dgom-ui-opayFormTarjeta-wrapper').html(loaginModal);
 		$('#modalOpenPayTarjetaCredito').modal('show');
+		var l = Ladda.create(this);
+	 	l.start();
 		
 		var form = $("#tipo-pago");
 		var data = form.serialize();
@@ -314,6 +316,7 @@ $(document).ready(function(){
 			success:function(response){
 				// cerrarMensajeConfirmacion();
 				$('.dgom-ui-opayFormTarjeta-wrapper').html(response);
+				l.stop();
 			},
 			error:function(xhr, textStatus, error){
 				//alert("Error");
@@ -334,6 +337,8 @@ $(document).ready(function(){
 	// Al dar click al botón de pagar
 	$("#continuarOpenPay").on("click", function(e){
 		e.preventDefault();
+		var l = Ladda.create(this);
+	 	l.start();
 		
 		var form = $("#tipo-pago");
 		var data = form.serialize();
@@ -345,12 +350,11 @@ $(document).ready(function(){
 			method:'POST',
 			type:'HTML',
 			success:function(res){
-
-				managerFormaPago(res);
 				
+				managerFormaPago(res);
+				l.stop();
 				
 			}	
-			
 			
 			});
 	
@@ -602,9 +606,9 @@ $(document).ready(function(){
 			<div class="modal-footer">
 				<button type="button" class="btn btn-red btn-small"
 					data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-green btn-small"
+				<button type="button" class="btn btn-green btn-small ladda-button" data-style="zoom-out" 
 					id="continuarOpenPay">Generar ticket</button>
-				<button type="button" class="btn btn-green btn-small"
+				<button type="button" class="btn btn-green btn-small ladda-button" data-style="zoom-out"
 					id="continuarOpenPayCredit">Pagar con tarjeta de crédito</button>
 			</div>
 			<!-- end / .modal-footer -->
