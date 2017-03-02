@@ -50,7 +50,7 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 			<!-- .login-form -->
 			<div class="login-form">
 
-				<img src="<?= Yii::app()->request->baseUrl ?>/images/hardcode/WPC-Logo.png" alt="CFM">
+				<img src="<?= Yii::app()->request->baseUrl ?>/images/hardcode/ms-icon-150x150.png" alt="CFM">
 				<h1><?php //echo $concurso->txt_name?></h1>
 
 				<?php

@@ -5,7 +5,7 @@ if ($debug) {
 	$dataBase = array (
 				
 
-			'connectionString' => 'mysql:host=localhost;dbname=comite_2017',
+			'connectionString' => 'mysql:host=192.168.0.4;dbname=comite_2017',
 
 			'emulatePrepare' => true,
 			'username' => 'root',
