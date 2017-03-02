@@ -18,7 +18,7 @@ $cs->registerCssFile ( Yii::app ()->request->baseUrl . "/css/concursos.css" );
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home">Concursos abiertos</a></li>
-  <li><a data-toggle="tab" href="#menu1">Concursos inscrito</a></li>
+<!--   <li><a data-toggle="tab" href="#menu1">Concursos inscrito</a></li> -->
 <!--   <li><a data-toggle="tab" href="#menu2">Próximos concursos</a></li> -->
 </ul>
 

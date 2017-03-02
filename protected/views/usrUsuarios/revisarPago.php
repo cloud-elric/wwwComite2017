@@ -21,7 +21,7 @@ function validarPago(){
 
 	setTimeout(function(){
 		$.ajax({
-			url:'<?=Yii::app()->request->baseUrl?>/usrUsuarios/revisarValidarPago',
+			url:'<?=Yii::app()->request->baseUrl?>/usrUsuarios/revisarValidarPago?idConcurso=<?=$concusoToken?>',
 			success:function(response){
 					if(response=="success"){
 						window.location

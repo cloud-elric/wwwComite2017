@@ -412,6 +412,7 @@ $(document)
 					 */
 					$(".modal-imprimir-ticket").click(function() {
 						$("#print").printArea();
+						//window.print();
 					});
 
 					/**
@@ -872,3 +873,30 @@ function closeErrorUpload(elemento) {
 	$("#" + identificador + " .pictureUpload").prop("disabled", false);
 	
 }
+
+
+(function() {
+
+    var beforePrint = function() {
+        alert('Functionality to run before printing.');
+    };
+
+    var afterPrint = function() {
+    	alert('Functionality to run after printing');
+    };
+
+    if (window.matchMedia) {
+        var mediaQueryList = window.matchMedia('print');
+        mediaQueryList.addListener(function(mql) {
+            if (mql.matches) {
+                beforePrint();
+            } else {
+                afterPrint();
+            }
+        });
+    }
+
+    window.onbeforeprint = beforePrint;
+    window.onafterprint = afterPrint;
+
+}());

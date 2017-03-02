@@ -33,20 +33,20 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 	<!-- .row -->
 	<div class="row">
 		
-		<!-- .col -->
+		<!-- .col
 		<div class="login-col-flex col-sm-6 col-md-6">
 			<div class="login-text">
 				<h2>
 					<?=Yii::t('general', 'bienvenido')?> <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png" alt="<?php //echo $concurso->txt_name?>">
 				</h2>
-				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
+				<button type="button" class="btn btn-blue">Consulta las bases del concurso</button> 
 				<a href="<?php //echo$concurso->txt_url_contest?>" target="_blank" class="btn btn-blue"><?=Yii::t('general', 'consulta')?></a>
 			</div>
 		</div>
-		<!-- end / .col -->
+		 end / .col -->
 
 		<!-- .col -->
-		<div class="login-col-flex col-sm-6 col-md-6">
+		<div class="login-col-flex col-sm-6 col-md-6 col-offset-3">
 			<!-- .login-form -->
 			<div class="login-form">
 

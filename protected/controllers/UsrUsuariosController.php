@@ -1238,21 +1238,21 @@ class UsrUsuariosController extends Controller {
 		if ($isUsuarioInscrito) {
 			$this->redirect ( array("usrUsuarios/concurso",'idToken'=>$contest));
 		} else {
-			$this->render ( "revisarPago" );
+			$this->render ( "revisarPago", array('concusoToken'=>$concurso->txt_token) );
 		}
 	}
 	
 	/**
 	 * Revisa que el pago ya se encuentre en la base de datos
 	 */
-	public function actionRevisarValidarPago() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionRevisarValidarPago($idConcurso=null) {
+	
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		// Recupera el concurso
-		$concurso = $this->searchConcurso ( $idConcurso );
+		$concurso =  ConContests::getConcusoByToken($idConcurso);
 		
-		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
+		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $concurso->id_contest );
 		
 		if ($isUsuarioInscrito) {
 			echo "success";
@@ -1316,6 +1316,8 @@ class UsrUsuariosController extends Controller {
 				)
 		));
 		
+		$impuesto = 0.16;
+		
 		$idContest = $conc->id_contest;
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idContest );
 		
@@ -1348,7 +1350,7 @@ class UsrUsuariosController extends Controller {
 				
 				$oc->id_cupon = null;
 				// $oc->num_total = $oc->num_sub_total * (0.13);
-				$tax = number_format ( ($oc->num_sub_total * (0.13)), 2 );
+				$tax = number_format ( ($oc->num_sub_total * ($impuesto)), 2 );
 				$oc->num_total = number_format ( ($oc->num_sub_total + $tax), 2 );
 				$oc->save ();
 				$cupon = new PayCupons ();
@@ -1365,12 +1367,12 @@ class UsrUsuariosController extends Controller {
 					
 					$subTotal = number_format ( (($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100))), 2 );
 					
-					$tax = number_format ( ($subTotal * (0.13)), 2 );
+					$tax = number_format ( ($subTotal * ($impuesto)), 2 );
 					$oc->num_total = $subTotal + $tax;
 				} else {
 					$subTotal = number_format ( (((($oc->num_sub_total - $cupon->num_porcentaje_descuento)))), 2 );
 					
-					$tax = number_format ( ($subTotal * (0.13)), 2 );
+					$tax = number_format ( ($subTotal * ($impuesto)), 2 );
 					$oc->num_total = $subTotal + $tax;
 				}
 				

@@ -37,7 +37,7 @@ $cs->registerScriptFile ( Yii::app ()->request->baseUrl . "/js/facebook/fb.js" )
 
 				<img style="margin-bottom:15px;" src="<?= Yii::app()->request->baseUrl ?>/images/logos/logoGJ.png"
 					alt="Global judging">
-				<h3 class="form-group">Global judging</h3>
+				<h3 class="form-group">Comité Fotográfico 2017</h3>
 					
 				<?php
 				$form = $this->beginWidget ( 'CActiveForm', array (
