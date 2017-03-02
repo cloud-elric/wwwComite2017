@@ -46,7 +46,7 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 		 end / .col -->
 
 		<!-- .col -->
-		<div class="login-col-flex col-sm-6 col-md-6 col-offset-3">
+		<div class="login-col-flex col-sm-6 col-md-6 col-md-offset-3">
 			<!-- .login-form -->
 			<div class="login-form">
 
