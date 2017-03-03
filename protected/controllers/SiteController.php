@@ -221,7 +221,7 @@ class SiteController extends Controller {
 	public function actionResetPassword($hide = null, $t=null) {
 		
 		// Verifica que exita el concurso
-		$concurso = $this->verificarToken ( $t );
+		//$concurso = $this->verificarToken ( $t );
 		
 		$this->layout = "mainLogin";
 		if (! empty ( $hide )) {
