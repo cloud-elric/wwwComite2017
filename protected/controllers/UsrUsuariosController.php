@@ -1429,7 +1429,7 @@ class UsrUsuariosController extends Controller {
 // 		echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 // 		exit();
 
-		if($action->id == 'registrar' || $action->id=='callbackFacebook'){
+		if($action->id == 'registrar' || $action->id=='callbackFacebook' || $action->id=='iPNPayPal'){
 			return parent::beforeAction($action);
 		}
 		

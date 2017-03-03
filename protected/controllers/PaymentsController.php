@@ -103,6 +103,7 @@ class PaymentsController extends Controller {
 		
 		if(empty($charge)){
 			$this->logOpenPay ( "El order ID no existe o ya esta marcado como completo :" . $order_id );
+			return;
 		}
 		
 		// Verifica que no este pagada la orden de compra
