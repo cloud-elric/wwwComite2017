@@ -34,7 +34,7 @@
 												<td width="454" align="left"
 													style="color: #444444; border-collapse: collapse; font-size: 11pt; font-family: proxima_nova, 'Open Sans', 'Lucida Grande', 'Segoe UI', Arial, Verdana, 'Lucida Sans Unicode', Tahoma, 'Sans Serif'; max-width: 454px;"
 													valign="top"><?php //echo Yii::t('recoveryPassword', 'gretting')?> <?= $data['usuario']->txt_nombre . $data['usuario']->txt_apellido_paterno ?><br>
-												<br><?php //echo Yii::t('recoveryPassword', 'descriptionMessage1')?> <?= "Tu pago a ". $data['concurso']->txt_name." en el ".$data['ordenCompra']->txt_descripcion." con el monto ".$data['ordenCompra']->num_total ?> <a
+												<br><?php //echo Yii::t('recoveryPassword', 'descriptionMessage1')?> <?= "Tu pago a ". $data['concurso']->txt_name." en el ".$data['ordenCompra']->txt_descripcion." con el monto de $".$data['ordenCompra']->num_total." pesos"?> <a
 														href="<?php echo Yii::app()->createAbsoluteUrl('site/login');?>">
 														<?=Yii::t('login', 'linkTest')?></a>:<br>
 												<br>
