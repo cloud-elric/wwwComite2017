@@ -1,8 +1,128 @@
-2016/06/27 11:40:38 [debug] [facebook] 
+2017/03/02 01:29:22 [debug] [facebook] 
  En callback de facebook
-in C:\xampp\htdocs\wwwComiteConcursante\protected\controllers\UsrUsuariosController.php (865)
-in C:\xampp\htdocs\wwwComiteConcursante\index.php (13)
-2016/06/27 11:42:56 [debug] [facebook] 
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:29:22 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:29:23 [debug] [facebook] 
+ Se crea un nuevo usuario
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (995)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:29:23 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:47:51 [debug] [facebook] 
  En callback de facebook
-in C:\xampp\htdocs\wwwComiteConcursante\protected\controllers\UsrUsuariosController.php (865)
-in C:\xampp\htdocs\wwwComiteConcursante\index.php (13)
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:47:52 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:47:52 [debug] [facebook] 
+ Se crea un nuevo usuario
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (995)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:47:52 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:53:00 [debug] [facebook] 
+ En callback de facebook
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:53:01 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:53:01 [debug] [facebook] 
+ Se edita al usuario por face
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1018)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:53:01 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:54:27 [debug] [facebook] 
+ En callback de facebook
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:54:28 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:54:28 [debug] [facebook] 
+ Se edita al usuario por face
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1018)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 01:54:28 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:19:41 [debug] [facebook] 
+ En callback de facebook
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:19:42 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:19:42 [debug] [facebook] 
+ Se edita al usuario por face
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1018)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:19:42 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:22:49 [debug] [facebook] 
+ En callback de facebook
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:22:50 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:22:50 [debug] [facebook] 
+ Se edita al usuario por face
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1018)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 02:22:50 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 03:09:33 [debug] [facebook] 
+ En callback de facebook
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 03:09:34 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 03:09:34 [debug] [facebook] 
+ Se crea un nuevo usuario
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (995)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 03:09:34 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 15:10:47 [debug] [facebook] 
+ En callback de facebook
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (942)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 15:10:49 [debug] [facebook] 
+Datos de facebook1
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (963)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 15:10:49 [debug] [facebook] 
+ Se crea un nuevo usuario
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (995)
+in /home/globalju/public_html/community/index.php (13)
+2017/03/02 15:10:49 [debug] [facebook] 
+ Redirecciona al index
+in /home/globalju/public_html/community/protected/controllers/UsrUsuariosController.php (1027)
+in /home/globalju/public_html/community/index.php (13)

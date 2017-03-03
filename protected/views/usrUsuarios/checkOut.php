@@ -106,7 +106,7 @@ $this->pageTitle = Yii::t ( 'general', 'checkoutTitle' );
 												<p class="prodcuto"><?=$oc->txt_description?></p>
 											</div>
 											<div class="col-md-3 text-right">
-												<p class="prodcuto-total">$ <?=$oc->num_sub_total . " " . $concurso->txt_moneda?></p>
+												<p class="prodcuto-total">$ <?=$oc->num_total==0?'0':$oc->num_sub_total . " " . $concurso->txt_moneda?></p>
 											</div>
 										</div>
 
@@ -238,18 +238,18 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 		<?=Yii::t('checkout', 'totalAntesDeImpuesto')?> <span>$ <?php
 		if ($cupon->b_porcentaje == 1) {
 			// echo $cupon->num_porcentaje_descuento;
-			echo $subTotal = number_format ( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100)), 2 ) . " " . $concurso->txt_moneda;
+			echo $subTotal = number_format ( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100)), 2 );
 		} else {
 			if (! empty ( $oc->id_cupon )) {
-				echo $subTotal = number_format ( ((($oc->num_sub_total - $cupon->num_porcentaje_descuento))), 2 ) . " " . $concurso->txt_moneda;
+				echo $subTotal = number_format ( ((($oc->num_sub_total - $cupon->num_porcentaje_descuento))), 2 ) ;
 			} else {
-				echo $subTotal = $oc->num_sub_total . ' CAD';
+				echo $subTotal = $oc->num_sub_total;
 			}
 		}
 		?></span>
 											</div>
 											<div class="tax-precio">
- 			<?=Yii::t('checkout', 'impuesto')?> <span>$ <?=$tax = number_format ( $subTotal * (0.13), 2 ) . " " . $concurso->txt_moneda;?></span>
+ 			<?=Yii::t('checkout', 'impuesto')?> <span>$ <?=$oc->num_total?($oc->num_sub_total * (0.16)) . " " . $concurso->txt_moneda:'0'?></span>
 											</div>
 											<div class="total-precio"><?=Yii::t('checkout', 'total')?> <span>$<?=$oc->num_total . " " . $concurso->txt_moneda ?></span>
 											</div>

@@ -1,0 +1,20 @@
+[01-Mar-2017 22:58:51 UTC] PHP Warning:  require_once(/home/globalju/public_html/community/../../Yii/yii/framework/yii.php): failed to open stream: No such file or directory in /home/globalju/public_html/community/index.php on line 12
+[01-Mar-2017 22:58:51 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/globalju/public_html/community/../../Yii/yii/framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/globalju/public_html/community/index.php on line 12
+[01-Mar-2017 22:58:55 UTC] PHP Warning:  require_once(/home/globalju/public_html/community/../../Yii/yii/framework/yii.php): failed to open stream: No such file or directory in /home/globalju/public_html/community/index.php on line 12
+[01-Mar-2017 22:58:55 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/globalju/public_html/community/../../Yii/yii/framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/globalju/public_html/community/index.php on line 12
+[01-Mar-2017 23:01:09 UTC] PHP Warning:  require_once(/home/globalju/public_html/community/../../Yii/yii/framework/yii.php): failed to open stream: No such file or directory in /home/globalju/public_html/community/index.php on line 12
+[01-Mar-2017 23:01:09 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/globalju/public_html/community/../../Yii/yii/framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/globalju/public_html/community/index.php on line 12
+[02-Mar-2017 00:31:00 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 167
+[02-Mar-2017 00:43:09 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 251
+[02-Mar-2017 00:43:28 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 251
+[02-Mar-2017 00:43:42 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 252
+[02-Mar-2017 00:44:13 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 252
+[02-Mar-2017 00:55:13 UTC] PHP Fatal error:  Call to undefined function php_info() in /home/globalju/public_html/community/info.php on line 1
+[02-Mar-2017 00:58:34 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 305
+[02-Mar-2017 00:59:14 UTC] PHP Fatal error:  Can't use function return value in write context in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 305
+[02-Mar-2017 01:02:39 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 308
+[02-Mar-2017 01:03:00 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/globalju/public_html/community/protected/controllers/PaymentsController.php on line 308
+[02-Mar-2017 01:51:01 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/globalju/public_html/community/protected/views/usrUsuarios/checkOut.php on line 252
+[02-Mar-2017 01:51:07 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/globalju/public_html/community/protected/views/usrUsuarios/checkOut.php on line 252
+[02-Mar-2017 01:51:17 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/globalju/public_html/community/protected/views/usrUsuarios/checkOut.php on line 252
+[02-Mar-2017 01:51:19 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/globalju/public_html/community/protected/views/usrUsuarios/checkOut.php on line 252

@@ -11,7 +11,7 @@ return array (
 		'sourceLanguage'=>'es',
 		'language' => 'es_es',
 		'theme' => '2gomDark',
-		'defaultController' => "usrUsuarios/concurso",
+		'defaultController' => "usrUsuarios/concursos",
 		
 		// preloading 'log' component
 		'preload' => array (

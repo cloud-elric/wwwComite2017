@@ -6,7 +6,7 @@ class PaymentsController extends Controller {
 	 *      using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout = '//layouts/column2';
-	const DEBUG_PAYMENT = true;
+	const DEBUG_PAYMENT = false;
 	
 	/**
 	 * Generar codigo para poder pagar en las tiendas
@@ -18,8 +18,10 @@ class PaymentsController extends Controller {
 		$openPayCharge->id_orden_compra = $orderId;
 		$openPayCharge->save();
 		// Pruebas
-		// $openpay = Openpay::getInstance('mgvepau0yawr74pc5p5x','pk_a4208044e7e4429090c369eae2f2efb3');
-		 $openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
+		 $openpay = Openpay::getInstance('mgvepau0yawr74pc5p5x','pk_a4208044e7e4429090c369eae2f2efb3');
+		 //$openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
+		 // Produccion
+		 //$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
 		
 		// Para producción usar el que empieza con pk_ para pruebas el sk y
 		// para producción hay que cambiar el valor de la variable $sandboxMode a false en el archivo OpenpayApi.php
@@ -93,7 +95,7 @@ class PaymentsController extends Controller {
 		$order_id = $transaction ['order_id'];
 		
 		$charge = PayOpenPayCharge::model()->find(array (
-				"condition" => "txt_token_charger=:order",
+				"condition" => "txt_token_charge=:order",
 				"params" => array (
 						":order" => $order_id 
 				) 
@@ -101,6 +103,7 @@ class PaymentsController extends Controller {
 		
 		if(empty($charge)){
 			$this->logOpenPay ( "El order ID no existe o ya esta marcado como completo :" . $order_id );
+			return;
 		}
 		
 		// Verifica que no este pagada la orden de compra
@@ -287,32 +290,35 @@ class PaymentsController extends Controller {
 		$productName = '';
 		$totalFotos = 0;
 		// Recorremos lo que se envio por post
-		foreach ( $_POST as $key => $value ) {
-			
+		//foreach ( $_POST as $key => $value ) {
 			// Revisamos los productos
-			if ($key == "producto") {
-				$producto = ConProducts::getProductoByToken ( $value );
+			if (isset($_POST['producto'])) {
+				$producto = ConProducts::getProductoByToken ( $_POST['producto'] );
 				if (empty ( $producto )) {
 					throw new CHttpException ( 404, 'The requested page does not exist.' );
 				}
-				$total += $producto->num_price;
+				
+				$total += floatval($producto->num_price);
 				$productName .= $producto->txt_name . " ";
 				$productosCont ++;
 				$totalFotos += $producto->num_photos;
 			}
 			
+			
 			// Revisa los subproductos
-			if ($key == "subProducto") {
-				$subProducto = ConProducts::getProductoByToken ( $value );
+			if (isset($_POST['subProducto'])) {
+				
+				$subProducto = ConProducts::getProductoByToken ( $_POST['subProducto']);
 				if (empty ( $subProducto )) {
 					throw new CHttpException ( 404, 'The requested page does not exist.' );
 				}
-				$total += $subProducto->num_price;
+				
+				$total += floatval($subProducto->num_price);
 				$productName .= $subProducto->txt_name . " ";
 				$subProductosCont ++;
 				$totalFotos += $subProducto->num_photos;
 			}
-		}
+		//}
 		
 		// $ordenCompra = PayOrdenesCompras::model ()->find ( array (
 		// 'condition' => 'id_contest=:idContest AND id_usuario=:idUsuario',
@@ -327,7 +333,7 @@ class PaymentsController extends Controller {
 		// }
 		
 		// Crea objeto y asigna valores para guardar la orden de compra
-		
+		floatval($total);
 		$ordenCompra->txt_order_number = "oc_" . md5 ( uniqid ( "oc_" ) ) . uniqid ();
 		$ordenCompra->id_usuario = $idUsuario;
 		$ordenCompra->id_contest = $idConcurso;
@@ -339,10 +345,12 @@ class PaymentsController extends Controller {
 		$ordenCompra->num_products = $productosCont;
 		$ordenCompra->num_addons = $subProductosCont;
 		
-		$ordenCompra->num_sub_total = number_format ( ($total), 2 );
-		$tax = number_format ( $total * (0.13), 2 );
+		$ordenCompra->num_sub_total =$total;
 		
-		$ordenCompra->num_total = number_format ( ($total + $tax), 2 );
+		$tax = $total * (0.16);
+		
+		$ordenCompra->num_total =$total + $tax;
+		
 		$ordenCompra->b_habilitado = 1;
 		$ordenCompra->txt_description = $productName;
 		$ordenCompra->num_fotos_permitidas = $totalFotos;
@@ -512,7 +520,8 @@ class PaymentsController extends Controller {
 							"description" =>  $oc->txt_description,
 								
 							"orderId" => $openPayCharge->txt_token_charge,
-							"amount" => $oc->num_total
+							"amount" => $oc->num_total,
+							'concurso'=>$conc->txt_token
 					) );
 					
 					return;

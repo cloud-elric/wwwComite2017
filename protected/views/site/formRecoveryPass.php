@@ -34,18 +34,6 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 	<div class="row">
 		
 		<!-- .col -->
-<!-- 		<div class="login-col-flex col-sm-6 col-md-6"> -->
-<!-- 			<div class="login-text"> -->
-<!-- 				<h2> -->
-					<?php //echo Yii::t('general', 'bienvenido')?> <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png" alt="<?php //echo $concurso->txt_name?>"> -->
-<!-- 				</h2> -->
-				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
-				<!-- <a href="<?php //echo$concurso->txt_url_contest?>" target="_blank" class="btn btn-blue"><?php //echoYii::t('general', 'consulta')?></a> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		<!-- end / .col -->
-
-		<!-- .col -->
 		<div class="login-col-flex col-sm-6 col-md-6 col-md-offset-3">
 			<!-- .login-form -->
 			<div class="login-form">

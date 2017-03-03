@@ -287,3 +287,4 @@ class UsrUsuarios extends CActiveRecord {
 	}
 	
 }
+
