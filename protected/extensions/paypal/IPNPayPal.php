@@ -237,6 +237,26 @@ class IPNPayPal {
 					if (! $ordenCompra->save ()) {
 						$error = true;
 						Yii::log ( "Error al guardar orden de compra " . print_r($ordenCompra->getErrors()), "pago", 'paypal' );
+					}else{
+						$usuario = UsrUsuarios::model()->find(array(
+								'condition' => 'id_usuario=:idUser',
+								'params' => array(
+										':idUser' => $pagoRecibido->id_usuario
+								)
+						));
+						$concurso = ConContests::model()->find(array(
+								'condition' => 'id_contest=:idConcurso',
+								'params' => array(
+										':idConcurso' => $ordenCompra->id_contest
+								)
+						));
+						// Preparamos los datos para enviar el correo
+						$view = "_pagoCompletado";
+						$data["ordenCompra"] = $ordenCompra;
+						$data["usuario"] = $usuario;
+						$data["concurso"] = $concurso;
+						$data["transaccion"]=$pagoRecibido->txt_transaccion;
+						$this->sendEmail ( "Pago completado", $view, $data, $usuario );
 					}
 				} else {
 					$error = true;
@@ -263,6 +283,26 @@ class IPNPayPal {
 		}
 		
 		Yii::log ( "\n\r ------------- FIN DE PAGO de $payer_email transacción :$txn_id -----------", "pago", 'paypal' );
+	}
+	
+	public function sendEmail($asunto, $view, $data, $usuario) {
+		$template = $this->generateTemplatePagoCompletado ( $view, $data );
+		$sendEmail = new SendEMail ();
+		$sendEmail->SendMailPass ( $asunto, $usuario->txt_correo, $usuario->txt_nombre . " " . $usuario->txt_apellido_paterno, $template );
+	}
+	
+	/**
+	 * Generamos template con la informacion necesaria
+	 */
+	public function generateTemplatePagoCompletado($view, $data) {
+	
+		// Render view and get content
+		// Notice the last argument being `true` on render()
+		$content = $this->renderPartial ( $view, array (
+				'data' => $data
+		), true );
+	
+		return $content;
 	}
 	
 	/**
