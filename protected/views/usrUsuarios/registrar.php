@@ -139,6 +139,7 @@ $(".registrar-btn").on("click", function(e){
 })	
 	
 //Create the preview image 
+var _URL = window.URL || window.webkitURL;
 $(".imageProfile").on("change",function (){    
     var file = this.files[0];
     var imagefile = file.type;
@@ -150,13 +151,18 @@ $(".imageProfile").on("change",function (){
         toastrError("<?=Yii::t('registrar', 'fileNoValid')?>");
 		return false;
     }
-    
+
+    var img;
+    if ((file = this.files[0])) {
+        img = new Image();
+        img.onload = function () {
+            //alert(this.width + " " + this.height);
+        	if(this.width <= 360 && this.height <= 360){
+//         		alert("La imagen es muy grande");
+//         		$(this).value = "";
+        	
   
     var reader = new FileReader();
-
-
-
-
     // Set preview image into the popover data-content
     reader.onload = function (e) {
 
@@ -225,7 +231,12 @@ $('#previewImage').load(function() {
     reader.readAsDataURL(file);
     console.log(file);
 
-
+        	}else{
+        		toastrError("La imagen es muy grande");
+        	}
+        };
+        img.src = _URL.createObjectURL(file);
+    }
 
 
 
