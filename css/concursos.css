@@ -21,3 +21,10 @@ position: relative;
 .container.concursos{
 	padding-top:20px;
 }
+
+.tab-pane{ 
+	padding-top: 40px;
+}
+.concursos .nav-tabs li.active a{
+	background-color: rgba(0,0,0,0.0);
+}

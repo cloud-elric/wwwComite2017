@@ -70,6 +70,9 @@
             $(PAWindow.doc).ready(function(){
                 paWindow.focus();
                 paWindow.print();
+                
+                if ( settings.mode == modes.popup)
+                    setTimeout(function() { alert('Mensaje'); }, 2000);
 
                 if ( settings.mode == modes.popup && settings.popClose )
                     setTimeout(function() { paWindow.close(); }, 2000);
@@ -79,6 +82,7 @@
             PADocument.open();
             PADocument.write( PrintArea.docType() + "<html>" + PrintArea.getHead() + PrintArea.getBody( $ele ) + "</html>" );
             PADocument.close();
+            alert('Mensaje');
         },
         docType : function() {
             if ( settings.mode == modes.iframe ) return "";

@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ladda-themeless.min.css">
 
     <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/cfm.css">
-    
+    <script>
+    var base = '<?php echo Yii::app()->request->baseUrl; ?>/';
+</script>
 <script src="<?php echo Yii::app()->baseUrl ?>/js/jquery.min.js"></script>
 <script src="<?php echo Yii::app()->baseUrl ?>/js/jquery-ui.min.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/plugins/print/jquery.PrintArea.js"></script>     

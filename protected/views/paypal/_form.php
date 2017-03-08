@@ -1,9 +1,9 @@
 
-<?php #echo CHtml::beginForm("https://www.paypal.com/cgi-bin/webscr", "POST",array("id"=>$idForm)); ?>
-<?php echo CHtml::beginForm("https://www.sandbox.paypal.com/cgi-bin/webscr", "POST",array("id"=>$idForm)); ?>
+<?php echo CHtml::beginForm("https://www.paypal.com/cgi-bin/webscr", "POST",array("id"=>$idForm)); ?>
+<?php #echo CHtml::beginForm("https://www.sandbox.paypal.com/cgi-bin/webscr", "POST",array("id"=>$idForm)); ?>
 
 <?php echo CHtml::hiddenField("cmd", $cmd)?>
-<?php echo CHtml::hiddenField("return", "http://localhost/wwwComiteCanadaConcursante/usrUsuarios/revisarPago")?>
+<?php echo CHtml::hiddenField("return", "http://localhost/wwwComiteCanadaConcursante/usrUsuarios/revisarPago?contest=".$contest)?>
 <?php echo CHtml::hiddenField("custom", $custom)?>
 <?php echo CHtml::hiddenField("notify_url", "http://localhost/wwwComiteCanadaConcursante/usrUsuarios/iPNPayPal")?>
 <?php echo CHtml::hiddenField("lc", $lc)?>

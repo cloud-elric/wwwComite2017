@@ -23,6 +23,7 @@ class UsrUsuarios extends CActiveRecord {
 	 * @var unknown
 	 */
 	public $repetirPassword;
+	public $b_participa;
 
 	/**
 	 * Usar esta propiedad mientras termina las siguientes tablas
@@ -64,7 +65,9 @@ class UsrUsuarios extends CActiveRecord {
 						'types' => 'jpg, png, gif',
 						'allowEmpty'=>true,
 						'safe' => false,
-						'on'=>'register'
+						'on'=>'register',
+						'maxSize' => 360 * 360 * 1,
+						'tooLarge' => 'La imagen es muy grande'
 				),
 				
 				array (
@@ -101,6 +104,11 @@ class UsrUsuarios extends CActiveRecord {
 						'max' => 20 
 				),
 				
+				array (
+						'repetirPassword',
+						'length',
+						'max' => 20
+				),
 				
 				array (
 						'txt_password,txt_correo, repetirPassword, txt_nombre, txt_apellido_paterno',
@@ -279,3 +287,4 @@ class UsrUsuarios extends CActiveRecord {
 	}
 	
 }
+

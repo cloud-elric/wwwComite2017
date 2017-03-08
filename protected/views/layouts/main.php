@@ -21,7 +21,9 @@
 		<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/magnific-popup.css">
 <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ladda-themeless.min.css">
 		<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/cfm.css">
-		
+		<script>
+		var base = '<?php echo Yii::app()->request->baseUrl; ?>/';
+</script>
 		<script src="<?php echo Yii::app()->baseUrl ?>/js/jquery-1.9.1.min.js"></script>
 		
 		<script src="<?php echo Yii::app()->baseUrl ?>/js/cfm.js"></script>

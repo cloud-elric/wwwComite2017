@@ -6,6 +6,8 @@ class UsrUsuariosController extends Controller {
 	 *      using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout = '//layouts/column2';
+	public $idUs;
+	public $idCon;
 	
 	/**
 	 *
@@ -56,7 +58,9 @@ class UsrUsuariosController extends Controller {
 								'sendReport',
 								'checkOut',
 								'concursos',
-								'test' 
+								'test',
+								'avance',
+								'calificaciones'
 						),
 						'users' => array (
 								'@' 
@@ -270,6 +274,13 @@ class UsrUsuariosController extends Controller {
 		));
 		$idC = $concurso->id_contest;
 		
+		$this->idUs = $idUsuario;
+		$this->idCon = $idC;
+		
+		$this->verificarUsuario($idUsuario, $idC);
+		
+		//$this->verificarUsuario($idUsuario, $idC);
+		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idC );
 		
 		// if(Yii::app()->user->concursante->txt_correo="humberto@2gom.com.mx"){
@@ -350,15 +361,23 @@ class UsrUsuariosController extends Controller {
 		
 		// Muestra las fotos
 		$this->render ( "fotosUpload", array (
-				"categorias" => $categorias 
+				"categorias" => $categorias,
+				"idConcurso" => $idConcurso
 		) );
 	}
 	
 	/**
 	 * Action que guarda la información de la foto
 	 */
-	public function actionGuardarInformacionPhoto() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionGuardarInformacionPhoto($idToken) {
+		//$idConcurso = Yii::app ()->user->concurso;
+		$concurso = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		$idConcurso = $concurso->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$participa = Yii::app ()->user->concursante->b_participa;
 		
@@ -476,9 +495,18 @@ class UsrUsuariosController extends Controller {
 	 * Vista con todos los concursos disponibles
 	 */
 	public function actionConcursos() {
+		
+		$usuario = Yii::app ()->user->concursante;
+		
 		$concursosDisponibles = ConContests::getConcursosHabilitadosPais ( 1 );
 		
+		$concursosUsuario = ConContests::getConcursosParticiparUsuario($usuario->id_usuario);
+		
+		$concursosProximos = ConContests::getConcursosProximosPais(1);
+		
 		$this->render ( 'concursos', array (
+				'concursosUsuario' => $concursosUsuario,
+				'concursosProximos' => $concursosProximos,
 				'concursosDisponibles' => $concursosDisponibles 
 		) );
 	}
@@ -525,7 +553,7 @@ class UsrUsuariosController extends Controller {
 	 * Action para ver las fotos subidas del usuario al concurso
 	 */
 	public function actionFotosUsuario() {
-		$this->revisarSesion ();
+		//$this->revisarSesion();
 		
 		$this->render ( "fotosUsuario" );
 	}
@@ -534,8 +562,15 @@ class UsrUsuariosController extends Controller {
 	 * Revisa que la sesion sea valida si no lo desloguea
 	 */
 	public function revisarSesion() {
-		$idConcurso = Yii::app ()->user->concurso;
+		//$idConcurso = Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
+		$rel = ConRelUsersContest::model()->find(array(
+			"condition" => "id_usuario=:idUsuario",
+			"params" => array(
+				":idUsuario" => $idUsuario
+			)
+		));
+		$idConcurso = $rel->id_contest;
 		
 		$session = Yii::app ()->user->getState ( md5 ( "sesion-" . $idUsuario . "-" . $idConcurso ) );
 		
@@ -565,7 +600,7 @@ class UsrUsuariosController extends Controller {
 	 * Action para agregar fotos del usuario
 	 */
 	public function actionGuardarFotosCompetencia() {
-		$idConcurso = Yii::app ()->user->concurso;
+		$idConcurso = 4;//Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$tokenUsuario = Yii::app ()->user->concursante->txt_usuario_number;
 		$respuesta = array ();
@@ -899,10 +934,10 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Callback con la respuesta de facebook
 	 */
-	public function actionCallbackFacebook($t = null) {
+	public function actionCallbackFacebook() {
 		
 		// Buscamos el concurso
-		$concurso = $this->validarToken ( $t );
+		//$concurso = $this->validarToken ( $t );
 		
 		Yii::log ( "\n\r En callback de facebook", "debug", 'facebook' );
 		$fb = new Facebook ();
@@ -963,7 +998,7 @@ class UsrUsuariosController extends Controller {
 					$login->loginFacebook ( $entUsuario );
 					
 					// Crea sesiones
-					$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
+					//$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
 				} else {
 					Yii::app ()->user->setFlash ( "error", "No se pudieron guardar los datos." );
 					Yii::log ( "\n\r No se pudo guardar el usuario" . $this->getErrors ( $entUsuario->getErrors () ), "debug", 'facebook' );
@@ -987,11 +1022,11 @@ class UsrUsuariosController extends Controller {
 				$login->loginFacebook ( $usuarioDB );
 				
 				// Crea sesiones
-				$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
+				//$this->crearSesionUsuarioConcurso ( Yii::app ()->user->concursante->id_usuario, $concurso );
 			}
 			Yii::log ( "\n\r Redirecciona al index", "debug", 'facebook' );
 			$this->redirect ( array (
-					"usrUsuarios/concurso" 
+					"usrUsuarios/concursos" 
 			) );
 		}
 	}
@@ -1075,13 +1110,31 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Action para cuando el usuario decide participar al concurso
 	 */
-	public function actionUsurioParticipar() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionUsurioParticipar($idTok) {
+		$concurso = ConContests::model()->find(array(
+			'condition' => 'txt_token=:idToken',
+			'params' => array(
+				':idToken' => $idTok
+			)
+		));
+		
+		$idConcurso = $concurso->id_contest;//Yii::app ()->user->concurso;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		$tokenUsuario = Yii::app ()->user->concursante->txt_usuario_number;
 		
+		$rel = ConRelUsersContest::model()->find(array(
+			'condition' => 'id_usuario=:idUs AND id_contest=:idCon',
+			'params' => array(
+				':idUs' => $idUsuario,
+				':idCon' => $idConcurso
+			)
+		));
+		if(!$rel){
+			return false;
+		}
+		
 		// Recupera el concurso
-		$concurso = $this->searchConcurso ( $idConcurso );
+		//$concurso = $this->searchConcurso ( $idConcurso );
 		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
 		
@@ -1121,7 +1174,8 @@ class UsrUsuariosController extends Controller {
 				$foto->save ();
 			}
 			
-			$usuario->b_participa = 1;
+			$rel->b_participa = 1;
+			$rel->save();
 			$usuario->save ();
 			
 			Yii::app ()->user->setState ( "concursante", $usuario );
@@ -1171,35 +1225,34 @@ class UsrUsuariosController extends Controller {
 	// $this->layout = 'mainScroll';
 	// $this->render ( 'reinscrip' );
 	// }
-	public function actionRevisarPago() {
+	public function actionRevisarPago($contest) {
 		$this->layout = 'mainRevisarPago';
 		
-		$idConcurso = Yii::app ()->user->concurso;
+		$concurso =  ConContests::getConcusoByToken($contest);
+		$idConcurso = $concurso->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
-		// Recupera el concurso
-		$concurso = $this->searchConcurso ( $idConcurso );
 		
 		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
 		
 		if ($isUsuarioInscrito) {
-			$this->redirect ( "concurso" );
+			$this->redirect ( array("usrUsuarios/concurso",'idToken'=>$contest));
 		} else {
-			$this->render ( "revisarPago" );
+			$this->render ( "revisarPago", array('concusoToken'=>$concurso->txt_token) );
 		}
 	}
 	
 	/**
 	 * Revisa que el pago ya se encuentre en la base de datos
 	 */
-	public function actionRevisarValidarPago() {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionRevisarValidarPago($idConcurso=null) {
+	
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		// Recupera el concurso
-		$concurso = $this->searchConcurso ( $idConcurso );
+		$concurso =  ConContests::getConcusoByToken($idConcurso);
 		
-		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $idConcurso );
+		$isUsuarioInscrito = ConRelUsersContest::isUsuarioInscrito ( $idUsuario, $concurso->id_contest );
 		
 		if ($isUsuarioInscrito) {
 			echo "success";
@@ -1263,6 +1316,8 @@ class UsrUsuariosController extends Controller {
 				)
 		));
 		
+		$impuesto = 0.16;
+		
 		$idContest = $conc->id_contest;
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idContest );
 		
@@ -1295,7 +1350,7 @@ class UsrUsuariosController extends Controller {
 				
 				$oc->id_cupon = null;
 				// $oc->num_total = $oc->num_sub_total * (0.13);
-				$tax = number_format ( ($oc->num_sub_total * (0.13)), 2 );
+				$tax = number_format ( ($oc->num_sub_total * ($impuesto)), 2 );
 				$oc->num_total = number_format ( ($oc->num_sub_total + $tax), 2 );
 				$oc->save ();
 				$cupon = new PayCupons ();
@@ -1312,12 +1367,12 @@ class UsrUsuariosController extends Controller {
 					
 					$subTotal = number_format ( (($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100))), 2 );
 					
-					$tax = number_format ( ($subTotal * (0.13)), 2 );
+					$tax = number_format ( ($subTotal * ($impuesto)), 2 );
 					$oc->num_total = $subTotal + $tax;
 				} else {
 					$subTotal = number_format ( (((($oc->num_sub_total - $cupon->num_porcentaje_descuento)))), 2 );
 					
-					$tax = number_format ( ($subTotal * (0.13)), 2 );
+					$tax = number_format ( ($subTotal * ($impuesto)), 2 );
 					$oc->num_total = $subTotal + $tax;
 				}
 				
@@ -1336,5 +1391,50 @@ class UsrUsuariosController extends Controller {
 		) );
 		
 		return;
+	}
+	
+	public function actionAvance(){
+		
+		$this->render('avance');
+	}
+	
+	public function actionCalificaciones($idToken){
+		$concurso = ConContests::model()->find(array(
+			'condition' => 'txt_token=:idToken',
+			'params' => array(
+				':idToken' => $idToken
+			)
+		));
+		
+		$this->render('calificaciones');
+	}
+	
+	public function verificarUsuario($idUsuario, $idConcurso){
+		$rel = ConRelUsersContest::model()->find(array(
+			"condition" => "id_usuario=:idUsuario AND id_contest=:idConcurso",
+			"params" => array(
+				":idUsuario" => $idUsuario,
+				":idConcurso" => $idConcurso
+			)
+		));
+					
+		if($rel){
+			Yii::app ()->user->concursante->b_participa = $rel->b_participa;
+		}else{
+			Yii::app ()->user->concursante->b_participa = 0;
+		}
+	}
+	
+	protected function beforeAction($action){
+// 		echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+// 		exit();
+
+		if($action->id == 'registrar' || $action->id=='callbackFacebook' || $action->id=='iPNPayPal'){
+			return parent::beforeAction($action);
+		}
+		
+		$this->verificarUsuario($this->idUs, $this->idCon);
+		//exit();
+		return parent::beforeAction($action);
 	}
 }

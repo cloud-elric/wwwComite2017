@@ -6,21 +6,26 @@ class PaymentsController extends Controller {
 	 *      using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout = '//layouts/column2';
-	const DEBUG_PAYMENT = true;
+	const DEBUG_PAYMENT = false;
 	
 	/**
 	 * Generar codigo para poder pagar en las tiendas
 	 */
 	public function actionOPCodeBar($description = null, $orderId = null, $amount, $idToken) {
 		$this->layout = false;
-		
+		$openPayCharge = new PayOpenPayCharge();
+		$openPayCharge->txt_token_charge = "opes_" . md5 ( uniqid ( "opes_" ) ) . uniqid ();
+		$openPayCharge->id_orden_compra = $orderId;
+		$openPayCharge->save();
 		// Pruebas
-		// $openpay = Openpay::getInstance('mgvepau0yawr74pc5p5x','pk_a4208044e7e4429090c369eae2f2efb3');
-		// $openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
+		 $openpay = Openpay::getInstance('mgvepau0yawr74pc5p5x','pk_a4208044e7e4429090c369eae2f2efb3');
+		 //$openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
+		 // Produccion
+		 //$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
 		
 		// Para producción usar el que empieza con pk_ para pruebas el sk y
 		// para producción hay que cambiar el valor de la variable $sandboxMode a false en el archivo OpenpayApi.php
-		$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
+		//$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
 		
 		$custom = array (
 				"name" => "-",
@@ -32,10 +37,12 @@ class PaymentsController extends Controller {
 				'amount' => $amount,
 				'description' => $description,
 				'customer' => $custom,
-				'order_id' => $orderId 
+				'order_id' => $openPayCharge->txt_token_charge 
 		);
 		
 		$charge = $openpay->charges->create ( $chargeData );
+		
+		
 		
 		$this->render ( "//openpay/recibo", array (
 				"charge" => $charge,
@@ -87,16 +94,28 @@ class PaymentsController extends Controller {
 		$mc_gross = $transaction ['amount'];
 		$order_id = $transaction ['order_id'];
 		
-		// Verifica que no este pagada la orden de compra
-		$ordenCompra = PayOrdenesCompras::model ()->find ( array (
-				"condition" => "txt_order_open_pay=:order AND b_pagado=0",
+		$charge = PayOpenPayCharge::model()->find(array (
+				"condition" => "txt_token_charge=:order",
 				"params" => array (
 						":order" => $order_id 
 				) 
 		) );
 		
-		if (empty ( $ordenCompra )) {
+		if(empty($charge)){
 			$this->logOpenPay ( "El order ID no existe o ya esta marcado como completo :" . $order_id );
+			return;
+		}
+		
+		// Verifica que no este pagada la orden de compra
+		$ordenCompra = PayOrdenesCompras::model ()->find ( array (
+				"condition" => "id_orden_compra=:order AND b_pagado=0",
+				"params" => array (
+						":order" => $charge->id_orden_compra 
+				) 
+		) );
+		
+		if (empty ( $ordenCompra )) {
+			$this->logOpenPay ( "La orden de compra no existe o ya esta marcado como completo :" . $order_id );
 			// @todo Hacer algo con el pago no encontrado en la BD
 			return;
 		}
@@ -165,7 +184,28 @@ class PaymentsController extends Controller {
 					if (! $ordenCompra->save ()) {
 						$error = true;
 						$this->logOpenPay ( "Error al guardar orden de compra " . print_r ( $ordenCompra->getErrors () ) );
+					}else{
+						$usuario = UsrUsuarios::model()->find(array(
+							'condition' => 'id_usuario=:idUser',
+							'params' => array(
+								':idUser' => $pagoRecibido->id_usuario
+							)
+						));	
+						$concurso = ConContests::model()->find(array(
+							'condition' => 'id_contest=:idConcurso',
+							'params' => array(
+								':idConcurso' => $ordenCompra->id_contest
+							)
+						));
+						// Preparamos los datos para enviar el correo
+						$view = "_pagoCompletado";
+						$data["ordenCompra"] = $ordenCompra;
+						$data["usuario"] = $usuario;
+						$data["concurso"] = $concurso;
+						$data["transaccion"]=$pagoRecibido->txt_transaccion;
+						$this->sendEmail ( "Pago completado", $view, $data, $usuario );
 					}
+					
 				} else {
 					$error = true;
 					$this->logOpenPay ( "Error al guardar inscripcion " . print_r ( $inscribirConcurso->getErrors () ) );
@@ -186,6 +226,26 @@ class PaymentsController extends Controller {
 		}
 		
 		$this->logOpenPay ( "------------------- PAGO CORRECTO ---------------------\n\r" );
+	}
+	
+	public function sendEmail($asunto, $view, $data, $usuario) {
+		$template = $this->generateTemplatePagoCompletado ( $view, $data );
+		$sendEmail = new SendEMail ();
+		$sendEmail->SendMailPass ( $asunto, $usuario->txt_correo, $usuario->txt_nombre . " " . $usuario->txt_apellido_paterno, $template );
+	}
+	
+	/**
+	 * Generamos template con la informacion necesaria
+	 */
+	public function generateTemplatePagoCompletado($view, $data) {
+	
+		// Render view and get content
+		// Notice the last argument being `true` on render()
+		$content = $this->renderPartial ( $view, array (
+				'data' => $data
+		), true );
+	
+		return $content;
 	}
 	
 	/**
@@ -230,32 +290,35 @@ class PaymentsController extends Controller {
 		$productName = '';
 		$totalFotos = 0;
 		// Recorremos lo que se envio por post
-		foreach ( $_POST as $key => $value ) {
-			
+		//foreach ( $_POST as $key => $value ) {
 			// Revisamos los productos
-			if ($key == "producto") {
-				$producto = ConProducts::getProductoByToken ( $value );
+			if (isset($_POST['producto'])) {
+				$producto = ConProducts::getProductoByToken ( $_POST['producto'] );
 				if (empty ( $producto )) {
 					throw new CHttpException ( 404, 'The requested page does not exist.' );
 				}
-				$total += $producto->num_price;
+				
+				$total += floatval($producto->num_price);
 				$productName .= $producto->txt_name . " ";
 				$productosCont ++;
 				$totalFotos += $producto->num_photos;
 			}
 			
+			
 			// Revisa los subproductos
-			if ($key == "subProducto") {
-				$subProducto = ConProducts::getProductoByToken ( $value );
+			if (isset($_POST['subProducto'])) {
+				
+				$subProducto = ConProducts::getProductoByToken ( $_POST['subProducto']);
 				if (empty ( $subProducto )) {
 					throw new CHttpException ( 404, 'The requested page does not exist.' );
 				}
-				$total += $subProducto->num_price;
+				
+				$total += floatval($subProducto->num_price);
 				$productName .= $subProducto->txt_name . " ";
 				$subProductosCont ++;
 				$totalFotos += $subProducto->num_photos;
 			}
-		}
+		//}
 		
 		// $ordenCompra = PayOrdenesCompras::model ()->find ( array (
 		// 'condition' => 'id_contest=:idContest AND id_usuario=:idUsuario',
@@ -270,7 +333,7 @@ class PaymentsController extends Controller {
 		// }
 		
 		// Crea objeto y asigna valores para guardar la orden de compra
-		
+		floatval($total);
 		$ordenCompra->txt_order_number = "oc_" . md5 ( uniqid ( "oc_" ) ) . uniqid ();
 		$ordenCompra->id_usuario = $idUsuario;
 		$ordenCompra->id_contest = $idConcurso;
@@ -282,10 +345,12 @@ class PaymentsController extends Controller {
 		$ordenCompra->num_products = $productosCont;
 		$ordenCompra->num_addons = $subProductosCont;
 		
-		$ordenCompra->num_sub_total = number_format ( ($total), 2 );
-		$tax = number_format ( $total * (0.13), 2 );
+		$ordenCompra->num_sub_total =$total;
 		
-		$ordenCompra->num_total = number_format ( ($total + $tax), 2 );
+		$tax = $total * (0.16);
+		
+		$ordenCompra->num_total =$total + $tax;
+		
 		$ordenCompra->b_habilitado = 1;
 		$ordenCompra->txt_description = $productName;
 		$ordenCompra->num_fotos_permitidas = $totalFotos;
@@ -387,7 +452,8 @@ class PaymentsController extends Controller {
 		if ($oc->num_total == 0) {
 			
 			$this->redirect ( array ('payments/savePagoRecibido', 
-					't'=>$oc->txt_order_number 
+					't'=>$oc->txt_order_number,
+					'idToken' => $conc->txt_token
 			) );
 			
 		}
@@ -432,6 +498,7 @@ class PaymentsController extends Controller {
 						"custom" => Yii::app ()->user->concursante->id_usuario,
 						"notify_url" => Yii::app ()->params ["notifyUrl"],
 						"lc" => "US",
+						'contest'=>$conc->txt_token,
 						// "business" => "beto@2gom.com.mx",
 						"business" => $configuracionPagos->txt_config_1,
 						"item_name" => '5044-002-'.$oc->txt_description,
@@ -440,13 +507,21 @@ class PaymentsController extends Controller {
 						"currency_code" => $configuracionPagos->txt_config_2 
 				) );
 			} else if ($oc->id_payment_type == 2) {
+				
 				if($creditCard){
+					
+					$openPayCharge = new PayOpenPayCharge();
+					
+					$openPayCharge->txt_token_charge = "opes_" . md5 ( uniqid ( "opes_" ) ) . uniqid ();
+					$openPayCharge->id_orden_compra = $oc->id_orden_compra;
+					$openPayCharge->save();
 					
 					$this->render ( "//openpay/showCreditCardPayments", array (
 							"description" =>  $oc->txt_description,
 								
-							"orderId" => $oc->txt_order_open_pay,
-							"amount" => $oc->num_total
+							"orderId" => $openPayCharge->txt_token_charge,
+							"amount" => $oc->num_total,
+							'concurso'=>$conc->txt_token
 					) );
 					
 					return;
@@ -455,9 +530,9 @@ class PaymentsController extends Controller {
 				$this->redirect ( array (
 						"oPCodeBar",
 						"description" => $oc->txt_description,
-						"orderId" => $oc->txt_order_open_pay,
+						"orderId" => $oc->id_orden_compra,
 						"amount" => $oc->num_total,
-						"idToken" => $idToken
+						"idToken" => $idToken,
 				) );
 			}
 		} else { // Pago gratis
@@ -467,14 +542,21 @@ class PaymentsController extends Controller {
 	/**
 	 * Genera el pago para el cliente
 	 */
-	public function actionSavePagoRecibido($t = null) {
-		$idConcurso = Yii::app ()->user->concurso;
+	public function actionSavePagoRecibido($t = null, $idToken) {
+		//$idConcurso = Yii::app ()->user->concurso;
+		$conc = ConContests::model()->find(array(
+				'condition' => "txt_token=:idToken",
+				'params' => array(
+						':idToken' => $idToken
+				)
+		));
+		$idConcurso = $conc->id_contest;
 		$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
 		$oc = PayOrdenesCompras::getOrdenCompraByToken ( $t, $idConcurso );
 		
 		if (empty ( $oc ) || $oc->num_total > 0) {
-			$this->redirect ( array('usrUsuarios/concurso'));
+			$this->redirect ( array('usrUsuarios/concurso?idToken='.$idToken));
 			return;
 			throw new CHttpException ( 404, 'The requested page does not exist.' );
 		}
@@ -486,7 +568,7 @@ class PaymentsController extends Controller {
 			
 		}
 		
-		$this->redirect ( array('usrUsuarios/concurso'));
+		$this->redirect ( array('usrUsuarios/concurso?idToken='.$idToken));
 		return;
 	}
 	

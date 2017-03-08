@@ -1,7 +1,7 @@
 <?php
 class IPNPayPal {
-	const DEBUG = 0;
-	const USE_SANDBOX = 0;
+	const DEBUG = 1;
+	const USE_SANDBOX = 1;
 	
 	/**
 	 * IPN para paypal
@@ -18,8 +18,7 @@ class IPNPayPal {
 		foreach ( $raw_post_array as $keyval ) {
 			$keyval = explode ( '=', $keyval );
 			
-			Yii::log ( "\n\r Can't connect to PayPal to validate IPN message: " . $keyval . PHP_EOL, "debug", 'paypal' );
-			Yii::log ( "\n\r Can't connect to PayPal to validate IPN message: " . print_r($keyval) . PHP_EOL, "debug", 'paypal' );
+			Yii::log ( "\n\r Can't connect to PayPal to validate IPN message: " . print_r($keyval) , "debug", 'paypal' );
 			
 			if (count ( $keyval ) == 2)
 				$myPost [$keyval [0]] = urldecode ( $keyval [1] );
@@ -91,15 +90,15 @@ class IPNPayPal {
 		if (curl_errno ( $ch ) != 0) // cURL error
 {
 			if (self::DEBUG == true) {
-				Yii::log ( "\n\r Can't connect to PayPal to validate IPN message: " . curl_error ( $ch ) . PHP_EOL, "debug", 'paypal' );
+				Yii::log ( "\n\r Can't connect to PayPal to validate IPN message: " . curl_error ( $ch ), "debug", 'paypal' );
 			}
 			curl_close ( $ch );
 			exit ();
 		} else {
 			// Log the entire HTTP response if debug is switched on.
 			if (self::DEBUG == true) {
-				Yii::log ( "\n\r HTTP request of validation request:" . curl_getinfo ( $ch, CURLINFO_HEADER_OUT ) . " for IPN payload: $req" . PHP_EOL, "debug", 'paypal' );
-				Yii::log ( "\n\r HTTP response of validation request: $res" . PHP_EOL, "debug", 'paypal' );
+				Yii::log ( "\n\r HTTP request of validation request:" . curl_getinfo ( $ch, CURLINFO_HEADER_OUT ) . " for IPN payload: $req", "debug", 'paypal' );
+				Yii::log ( "\n\r HTTP response of validation request: $res" , "debug", 'paypal' );
 			}
 			curl_close ( $ch );
 		}
@@ -118,7 +117,7 @@ class IPNPayPal {
 			// process payment and mark item as paid.
 			
 			if (self::DEBUG == true) {
-				Yii::log ( "\n\r Verified IPN: $req " . PHP_EOL, "debug", 'paypal' );
+				Yii::log ( "\n\r Verified IPN: $req ", "debug", 'paypal' );
 			}
 			
 			Yii::log ( "\n\r A procesar el pago y guardar.", "debug", 'paypal' );
@@ -127,7 +126,7 @@ class IPNPayPal {
 			// log for manual investigation
 			// Add business logic here which deals with invalid IPN messages
 			if (self::DEBUG == true) {
-				Yii::log ( "\n\r Invalid IPN: $req" . PHP_EOL, "debug", 'paypal' );
+				Yii::log ( "\n\r Invalid IPN: $req" , "debug", 'paypal' );
 			}
 		}
 	}
@@ -237,6 +236,26 @@ class IPNPayPal {
 					if (! $ordenCompra->save ()) {
 						$error = true;
 						Yii::log ( "Error al guardar orden de compra " . print_r($ordenCompra->getErrors()), "pago", 'paypal' );
+					}else{
+						$usuario = UsrUsuarios::model()->find(array(
+								'condition' => 'id_usuario=:idUser',
+								'params' => array(
+										':idUser' => $pagoRecibido->id_usuario
+								)
+						));
+						$concurso = ConContests::model()->find(array(
+								'condition' => 'id_contest=:idConcurso',
+								'params' => array(
+										':idConcurso' => $ordenCompra->id_contest
+								)
+						));
+						// Preparamos los datos para enviar el correo
+						$view = "_pagoCompletado";
+						$data["ordenCompra"] = $ordenCompra;
+						$data["usuario"] = $usuario;
+						$data["concurso"] = $concurso;
+						$data["transaccion"]=$pagoRecibido->txt_transaccion;
+						//$this->sendEmail ( "Pago completado", $view, $data, $usuario );
 					}
 				} else {
 					$error = true;
@@ -263,6 +282,26 @@ class IPNPayPal {
 		}
 		
 		Yii::log ( "\n\r ------------- FIN DE PAGO de $payer_email transacción :$txn_id -----------", "pago", 'paypal' );
+	}
+	
+	public function sendEmail($asunto, $view, $data, $usuario) {
+		$template = $this->generateTemplatePagoCompletado ( $view, $data );
+		$sendEmail = new SendEMail ();
+		$sendEmail->SendMailPass ( $asunto, $usuario->txt_correo, $usuario->txt_nombre . " " . $usuario->txt_apellido_paterno, $template );
+	}
+	
+	/**
+	 * Generamos template con la informacion necesaria
+	 */
+	public function generateTemplatePagoCompletado($view, $data) {
+	
+		// Render view and get content
+		// Notice the last argument being `true` on render()
+		$content = $this->renderPartial ( $view, array (
+				'data' => $data
+		), true );
+	
+		return $content;
 	}
 	
 	/**

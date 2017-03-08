@@ -4,17 +4,18 @@
 
 <script type="text/javascript">
         $(document).ready(function() {
-
-//             OpenPay.setId('mgvepau0yawr74pc5p5x');
-//             OpenPay.setApiKey('pk_a4208044e7e4429090c369eae2f2efb3');
-            
+        	// credenciales para desarrollo
+            OpenPay.setId('mgvepau0yawr74pc5p5x');
+            OpenPay.setApiKey('pk_a4208044e7e4429090c369eae2f2efb3');
+  // Comite para produccion          
 //             OpenPay.setId('mxmzxkxphmwhz8hnbzu8');
-//             OpenPay.setApiKey('pk_b0439b892a08485a96f6d21bd897d6bc');
+//             OpenPay.setApiKey('sk_a9c337fd308f4838854f422c802f4645');
+            //OpenPay.setApiKey('pk_b0439b892a08485a96f6d21bd897d6bc');
 
-         OpenPay.setId('muqckh3xbqhszkgapcer');
-         OpenPay.setApiKey('pk_91bc92b21e2f47aebd0945c8ad34b076');
+//          OpenPay.setId('muqckh3xbqhszkgapcer');
+//          OpenPay.setApiKey('pk_91bc92b21e2f47aebd0945c8ad34b076');
             
-            OpenPay.setSandboxMode(true);
+            OpenPay.setSandboxMode(false);
             //Se genera el id de dispositivo
             var deviceSessionId = OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
             
@@ -38,6 +39,7 @@
 
 					if(response=="success"){
 						toastrSuccess("Pago realizado con exito");
+						window.location.replace(base+'usrUsuarios/revisarPago?contest=<?=$concurso?>');
 					}else{
 						toastrError(response);
 						$("#pay-button").prop( "disabled", false);

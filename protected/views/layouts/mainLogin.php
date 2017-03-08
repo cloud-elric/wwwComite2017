@@ -38,7 +38,9 @@
 
 <link rel="stylesheet"
 	href="<?php echo Yii::app()->theme->baseUrl ?>/css/cfm.css">
-
+<script>
+var base = '<?php echo Yii::app()->request->baseUrl; ?>/';
+</script>
 <script src="<?php echo Yii::app()->baseUrl ?>/js/jquery-1.9.1.min.js"></script>
 
 <script async src="<?php echo Yii::app()->baseUrl ?>/js/cfm.js"></script>
@@ -81,13 +83,16 @@
 		src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.asScrollbar.js"></script>
 	<script
 		src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.asScrollable.js"></script>
+	
+	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/toastr.min.js"></script>
 
 	<script
 		src="<?= Yii::app()->request->baseUrl ?>/plugins/animsition/animsition.min.js"></script>
 	<script src="<?= Yii::app()->request->baseUrl ?>/js/global.js"></script>
 	
-	   <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/spin.min.js"></script>
+	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/spin.min.js"></script>
     <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/ladda.min.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/cfm.js"></script>
 
 	<script>
 

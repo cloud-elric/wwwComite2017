@@ -7,12 +7,20 @@ class OpenpayController extends Controller {
 	public function actionShowCreditCardPayments() {
 		if (isset ( $_POST ["token_id"] ) && $_POST ["orderId"]) {
 			
-			$ordenCompra = PayOrdenesCompras::model ()->find ( array (
-					"condition" => "txt_order_number=:orderId",
+			$charge = PayOpenPayCharge::model()->find(array (
+					"condition" => "txt_token_charge=:order",
 					"params" => array (
-							":orderId" => $_POST ["orderId"] 
-					) 
+							":order" =>  $_POST ["orderId"] 
+					)
 			) );
+			
+			// Verifica que no este pagada la orden de compra
+		$ordenCompra = PayOrdenesCompras::model ()->find ( array (
+				"condition" => "id_orden_compra=:order AND b_pagado=0",
+				"params" => array (
+						":order" => $charge->id_orden_compra 
+				) 
+		) );
 			
 			
 			
@@ -21,7 +29,7 @@ class OpenpayController extends Controller {
 			}
 			
 			try {
-				$charge = $this->createChargeCreditCard ( $ordenCompra->txt_description, $ordenCompra->txt_order_number, $ordenCompra->num_total );
+				$charge = $this->createChargeCreditCard ( $ordenCompra->txt_description, $charge->txt_token_charge, $ordenCompra->num_total );
 				#Yii::app ()->user->setFlash ( 'success', "Pago exitoso ");
 				#$this->redirect (array("usrUsuarios/revisarPago"));
 				echo "success";
@@ -57,8 +65,13 @@ class OpenpayController extends Controller {
 	 * @return unknown
 	 */
 	private function createChargeCreditCard($description = null, $orderId = null, $amount = null) {
-		//$openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
-		$openpay = Openpay::getInstance ( 'muqckh3xbqhszkgapcer', 'sk_e4b7e0e618804517bea2a0fef5e0609e' );
+		// pruebas
+		$openpay = Openpay::getInstance ( 'mgvepau0yawr74pc5p5x', 'sk_b1885d10781b4a05838869f02c211d48' );
+		
+		// produccion
+		//$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
+		
+		//$openpay = Openpay::getInstance ( 'muqckh3xbqhszkgapcer', 'sk_e4b7e0e618804517bea2a0fef5e0609e' );
 		//$openpay = Openpay::getInstance ( 'mxmzxkxphmwhz8hnbzu8', 'sk_a9c337fd308f4838854f422c802f4645' );
 		$usuario = Yii::app()->user->concursante->txt_nombre;
 		$correo = Yii::app()->user->concursante->txt_correo;

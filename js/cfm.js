@@ -1,4 +1,4 @@
-var base = 'http://localhost/wwwComiteCanadaConcursante/';
+//var base = 'http://localhost/wwwComite2017/';
 //var base = 'https://globaljudging.com/community/';
 //var base = 'https://hazclicconmexico.comitefotomx.com/concursar/';
 
@@ -412,6 +412,7 @@ $(document)
 					 */
 					$(".modal-imprimir-ticket").click(function() {
 						$("#print").printArea();
+						//window.print();
 					});
 
 					/**
@@ -458,11 +459,11 @@ $(document)
 							.on(
 									"click",
 									function() {
-
+										var idToken = $('#aceptarConcursar').data('token');
 										$
 												.ajax({
 													url : base
-															+ "/usrUsuarios/usurioParticipar",
+															+ "usrUsuarios/usurioParticipar?idTok="+idToken,
 													success : function() {
 														$(".participarCloud")
 																.css("display",
@@ -872,3 +873,32 @@ function closeErrorUpload(elemento) {
 	$("#" + identificador + " .pictureUpload").prop("disabled", false);
 	
 }
+
+
+(function() {
+
+    var beforePrint = function() {
+        alert('Functionality to run before printing.');
+    };
+
+    var afterPrint = function() {
+    	alert('Functionality to run after printing');
+    };
+
+    if (window.matchMedia) {
+        var mediaQueryList = window.matchMedia('print');
+        mediaQueryList.addListener(function(mql) {
+            if (mql.matches) {
+                beforePrint();
+            } else {
+                afterPrint();
+            }
+        });
+    }
+
+    window.onbeforeprint = beforePrint;
+    window.onafterprint = afterPrint;
+
+}());
+
+

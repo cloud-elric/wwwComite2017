@@ -35,7 +35,7 @@ function statusChangeCallback(response) {
 			}else{
 				// Logged into your app and Facebook.
 
-				window.location.replace('https://globaljudging.com/community/usrUsuarios/callbackFacebook/t/con_73cdf1c4f187ef82b94a945feae9d32a5783ddc623258');
+				window.location.replace(base+'usrUsuarios/callbackFacebook');
 //				window.location
 //						.replace('https://hazclicconmexico.comitefotomx.com/concursar/usrUsuarios/callbackFacebook/t/3c391e5c9feec1f95282a36bdd5d41ba');
 			}
@@ -82,7 +82,7 @@ function checkLoginState() {
 
 window.fbAsyncInit = function() {
 	FB.init({
-		appId : '301217853545433',
+		appId : '1199871320067085',
 		//appId:'1317189418298509',
 		cookie : true, // enable cookies to allow the server to access
 		// the session

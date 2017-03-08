@@ -16,7 +16,7 @@ $this->pageTitle = Yii::t ( 'general', 'checkoutTitle' );
 			<div class="text">
 				<h2 class="bienvenido">
 					<?=Yii::t('general', 'bienvenido')?> <img
-						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/Contest-Logo.png"
+						src="<?php echo Yii::app()->request->baseUrl; ?>/images/hardcode/<?= $concurso->txt_banner_img ?>"
 						alt="<?=$concurso->txt_name?>">
 				</h2>
 				<!-- <button type="button" class="btn btn-blue">Consulta las bases del concurso</button> -->
@@ -106,7 +106,7 @@ $this->pageTitle = Yii::t ( 'general', 'checkoutTitle' );
 												<p class="prodcuto"><?=$oc->txt_description?></p>
 											</div>
 											<div class="col-md-3 text-right">
-												<p class="prodcuto-total">$ <?=$oc->num_sub_total?> CAD</p>
+												<p class="prodcuto-total">$ <?=$oc->num_total==0?'0':$oc->num_sub_total . " " . $concurso->txt_moneda?></p>
 											</div>
 										</div>
 
@@ -137,7 +137,7 @@ if (! empty ( $cupon->txt_identificador_unico )) {
 		}
 	}
 	
-	?> CAD</p>
+	?><?= " " . $concurso->txt_moneda ?></p>
 											</div>
 										</div>
 	<?php
@@ -238,20 +238,20 @@ $form = $this->beginWidget ( 'CActiveForm', array (
 		<?=Yii::t('checkout', 'totalAntesDeImpuesto')?> <span>$ <?php
 		if ($cupon->b_porcentaje == 1) {
 			// echo $cupon->num_porcentaje_descuento;
-			echo $subTotal = number_format ( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100)), 2 ) . " CAD";
+			echo $subTotal = number_format ( ($oc->num_sub_total - (($cupon->num_porcentaje_descuento * $oc->num_sub_total) / 100)), 2 );
 		} else {
 			if (! empty ( $oc->id_cupon )) {
-				echo $subTotal = number_format ( ((($oc->num_sub_total - $cupon->num_porcentaje_descuento))), 2 ) . " CAD";
+				echo $subTotal = number_format ( ((($oc->num_sub_total - $cupon->num_porcentaje_descuento))), 2 ) ;
 			} else {
-				echo $subTotal = $oc->num_sub_total . ' CAD';
+				echo $subTotal = $oc->num_sub_total;
 			}
 		}
 		?></span>
 											</div>
 											<div class="tax-precio">
- 			<?=Yii::t('checkout', 'impuesto')?> <span>$ <?=$tax = number_format ( $subTotal * (0.13), 2 ) . " CAD";?></span>
+ 			<?=Yii::t('checkout', 'impuesto')?> <span>$ <?=$oc->num_total?($oc->num_sub_total * (0.16)) . " " . $concurso->txt_moneda:'0'?></span>
 											</div>
-											<div class="total-precio"><?=Yii::t('checkout', 'total')?> <span>$<?=$oc->num_total?> CAD</span>
+											<div class="total-precio"><?=Yii::t('checkout', 'total')?> <span>$<?=$oc->num_total . " " . $concurso->txt_moneda ?></span>
 											</div>
 										</div>
 									</div>
@@ -302,6 +302,8 @@ $(document).ready(function(){
 		$("#modalOpenPayMensaje").modal("hide");
 		$('.dgom-ui-opayFormTarjeta-wrapper').html(loaginModal);
 		$('#modalOpenPayTarjetaCredito').modal('show');
+		var l = Ladda.create(this);
+	 	l.start();
 		
 		var form = $("#tipo-pago");
 		var data = form.serialize();
@@ -314,6 +316,7 @@ $(document).ready(function(){
 			success:function(response){
 				// cerrarMensajeConfirmacion();
 				$('.dgom-ui-opayFormTarjeta-wrapper').html(response);
+				l.stop();
 			},
 			error:function(xhr, textStatus, error){
 				//alert("Error");
@@ -334,6 +337,8 @@ $(document).ready(function(){
 	// Al dar click al botón de pagar
 	$("#continuarOpenPay").on("click", function(e){
 		e.preventDefault();
+		var l = Ladda.create(this);
+	 	l.start();
 		
 		var form = $("#tipo-pago");
 		var data = form.serialize();
@@ -345,12 +350,11 @@ $(document).ready(function(){
 			method:'POST',
 			type:'HTML',
 			success:function(res){
-
-				managerFormaPago(res);
 				
+				managerFormaPago(res);
+				l.stop();
 				
 			}	
-			
 			
 			});
 	
@@ -415,7 +419,7 @@ if (formaPago == "Paypal") {
 <?php }else{?>
 	<button class="btn btn-yellow btn-make-payment ladda-button"
 							id="pagarCheckFree" data-style="zoom-out">
-							<span class="ladda-label">Continue</span>
+							<span class="ladda-label">Continuar</span>
 						</button>
 
 						<script>
@@ -602,9 +606,9 @@ $(document).ready(function(){
 			<div class="modal-footer">
 				<button type="button" class="btn btn-red btn-small"
 					data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-green btn-small"
-					id="continuarOpenPay">Generar ticket</button>
-				<button type="button" class="btn btn-green btn-small"
+				<button type="button" class="btn btn-green btn-small ladda-button" data-style="zoom-out" 
+					id="continuarOpenPay">Pagar en establecimiento</button>
+				<button type="button" class="btn btn-green btn-small ladda-button" data-style="zoom-out"
 					id="continuarOpenPayCredit">Pagar con tarjeta de crédito</button>
 			</div>
 			<!-- end / .modal-footer -->
