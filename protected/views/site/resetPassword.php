@@ -52,9 +52,9 @@ $this->pageTitle = Yii::t('general', 'cambiarPassTitle');
 					<p><?=Yii::t('resetPassword', 'instrucciones')?></p>
 
 
-					<?php echo $form->passwordField($model,'txt_password',array('size'=>10,'maxlength'=>10,"class"=>"form-control",'placeholder'=>Yii::t('resetPassword', 'Agregar contraseña'))); ?>
+					<?php echo $form->passwordField($model,'txt_password',array(/*'size'=>10,'maxlength'=>10,*/ 'minlength'=>8 ,"class"=>"form-control",'placeholder'=>Yii::t('resetPassword', 'Agregar contraseña'))); ?>
 
-					<?php echo $form->passwordField($model,'repetirPassword',array("class"=>"form-control",'placeholder'=>Yii::t('resetPassword', 'Repetir contraseña'))); ?>
+					<?php echo $form->passwordField($model,'repetirPassword',array('minlength'=>8, "class"=>"form-control",'placeholder'=>Yii::t('resetPassword', 'Repetir contraseña'))); ?>
 
 					<?php # echo $form->error($model,'username'); ?>
 					
