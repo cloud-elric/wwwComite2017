@@ -1,7 +1,7 @@
 <?php
 class IPNPayPal {
-	const DEBUG = 0;
-	const USE_SANDBOX = 0;
+	const DEBUG = 1;
+	const USE_SANDBOX = 1;
 	
 	/**
 	 * IPN para paypal
@@ -255,7 +255,7 @@ class IPNPayPal {
 						$data["usuario"] = $usuario;
 						$data["concurso"] = $concurso;
 						$data["transaccion"]=$pagoRecibido->txt_transaccion;
-						$this->sendEmail ( "Pago completado", $view, $data, $usuario );
+						//$this->sendEmail ( "Pago completado", $view, $data, $usuario );
 					}
 				} else {
 					$error = true;

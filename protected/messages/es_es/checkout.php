@@ -10,7 +10,7 @@ return array(
 		'impuesto'=>'I.V.A',
 		'total'=>'Total',
 		'submit'=>'Realizar pago',
-		'warningPay'=>'Debe seleccionar una forma de pago'
-		
+		'warningPay'=>'Debe seleccionar una forma de pago',
+		'parece que te faltan 2 imagenes'
 		
 );

@@ -1,7 +1,7 @@
 <?php
 return array(
 		'header'=>'POR FAVOR SELECCIONA TU TIPO DE INSCRIPCIÓN',
-		'note'=>'*El costo es una cuota de recuperación',
+		'note'=>'* Todos los precios son más el 16% de I.V.A',
 		'terminos'=>'Acepto términos y condiciones',
 		'headerTerminos'=>'Términos y condiciones',
 		'acepto'=>'Acepto términos y condiciones',
