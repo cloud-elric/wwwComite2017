@@ -53,7 +53,7 @@
 					<div class="row">
 						<!-- .logo -->
 						<div class="logo col-xs-6 col-sm-6 col-md-4">
-							<a href="http://www.ppoc.ca/en/WPC" target="_blank">
+							<a href="<?=Yii::app()->request->baseUrl?>">
 								<span style="background-image: url(<?php echo Yii::app()->theme->baseUrl; ?>/images/logo.png)"></span>
 <!-- 								<h1>Haz clic con México</h1> -->
 							</a>

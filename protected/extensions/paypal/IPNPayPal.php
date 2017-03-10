@@ -209,7 +209,7 @@ class IPNPayPal {
 		
 	$pagoRecibido = new PayPaymentsRecibed ();
 		$pagoRecibido->id_usuario = $ordenCompra->id_usuario;
-		$pagoRecibido->id_tipo_pago = $ordenCompra->id_payment_type;
+		$pagoRecibido->id_tipo_pago = 1;
 		$pagoRecibido->txt_transaccion_local = 'Local';
 		$pagoRecibido->txt_notas = 'Notas';
 		$pagoRecibido->txt_estatus = $payment_status;

@@ -60,7 +60,8 @@ class UsrUsuariosController extends Controller {
 								'concursos',
 								'test',
 								'avance',
-								'calificaciones'
+								'calificaciones',
+								'consultarFoto'
 						),
 						'users' => array (
 								'@' 
@@ -293,7 +294,8 @@ class UsrUsuariosController extends Controller {
 		
 		// Si el usuario esta inscrito lo enviamos a ver sus fotografias
 		if ($isUsuarioInscrito) {
-			$this->usuarioInscrito ($idUsuario, $idC);
+			
+			$this->usuarioInscrito ($idUsuario, $idC, $concurso);
 			// Si el usuario no esta inscrito
 		} else {
 			
@@ -304,7 +306,7 @@ class UsrUsuariosController extends Controller {
 	/**
 	 * Usuario inscrito
 	 */
-	public function usuarioInscrito($idUsuario, $idC) {
+	public function usuarioInscrito($idUsuario, $idC, $concurso=null) {
 		$idConcurso = $idC;
 		//$idUsuario = Yii::app ()->user->concursante->id_usuario;
 		
@@ -359,10 +361,99 @@ class UsrUsuariosController extends Controller {
 		) );
 		$categorias = CHtml::listData ( $categorias, "id_category", "txt_name" );
 		
+		if($concurso->id_status >2){
+			$this->render('fotosConcursoFinalizado', array("categorias" => $categorias,
+				"idConcurso" => $idConcurso,'concurso'=>$concurso));
+			return;
+		}
+		
 		// Muestra las fotos
 		$this->render ( "fotosUpload", array (
 				"categorias" => $categorias,
-				"idConcurso" => $idConcurso
+				"idConcurso" => $idConcurso,
+		) );
+	}
+	
+	/**
+	 * Busca por token la imagen
+	 *
+	 * @param unknown $t
+	 */
+	private function searchPic($t) {
+		$pic = WrkPics::model ()->find ( array (
+				"condition" => "txt_pic_number=:token",
+				"params" => array (
+						":token" => $t
+				)
+		) );
+	
+		if (empty ( $pic )) {
+			throw new CHttpException ( 404, 'The requested page does not exist.' );
+		}
+	
+		return $pic;
+	}
+	
+	public function actionConsultarFoto($t=null){
+		$pic = $this->searchPic ( $t );
+		
+		$id = $pic->id_pic;
+		
+		$cargarScripts = new CargarScripts ();
+		$cargarScripts->getScripts ( array (
+				"c_asPieProgress",
+				"c_pie_progress",
+				"c_geek",
+				"c_geek_impresion"
+		), "css" );
+		
+		// Foto a calificar
+		$photo = $this->searchPic ( $t );
+		
+		// Calificaciones por rubro
+		$calificacionRubro = ViewCalificacionByRubro::model ()->findAll ( array (
+				"condition" => "id_pic=:idPic",
+				"params" => array (
+						":idPic" => $photo->id_pic
+				),
+				'order'=>'id_rubro'
+		) );
+		
+		$criteria = new CDbCriteria ();
+		$criteria->condition = "id_pic=:idPic";
+		$criteria->params = array (
+				":idPic" => $photo->id_pic
+		);
+		$criteria->group = "id_juez, id_pic";
+		
+		// Busca si el dueño de la fotografía compro con feedback
+		$hasFeedback = ViewUsuarioPicsProductos::model ()->find ( array (
+				'condition' => 'id_pic=:idPic AND num_addons>0',
+				'params' => array (
+						':idPic' => $id
+				)
+		) );
+		
+		$feedBacks = array();
+		if(!empty($hasFeedback)){
+			$feedBacks = WrkPicsCalificaciones::model ()->findAll ( $criteria );
+		}
+		
+		
+		
+		$calificacionesJueces = WrkPicsCalificaciones::model ()->findAll ( array (
+				"condition" => "id_pic=:idPic",
+				"params" => array (
+						":idPic" => $photo->id_pic
+				),
+				'order'=>'id_juez, id_rubro'
+		) );
+		
+		$this->render ( 'consulta', array (
+				"photo" => $photo,
+				"calificacionRubro" => $calificacionRubro,
+				"feedBacks" => $feedBacks,
+				"calificacionesJueces" => $calificacionesJueces
 		) );
 	}
 	
